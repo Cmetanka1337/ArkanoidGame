@@ -18,7 +18,7 @@ class BallObject(AbstractMovableObject):
     def render(self):
         pass
 
-    def move_to(self, x: float, y: float)
+    def move_to(self, x: float, y: float):
         #встановлюємо напрямок руху а потім рухаємо в тому напрямку мяч змінюючи координати х та у
         self.move_direction[0] = x
         self.move_direction[1] = y
