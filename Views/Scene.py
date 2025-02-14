@@ -3,5 +3,3 @@ class SceneObject:
     height:float = 600
     def __init__(self):
         pass
-
-

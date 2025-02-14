@@ -23,6 +23,3 @@ class UserPlateObject(AbstractMovableObject):
         self.rect.width=new_width
         if self.rect.right>self.scene_width:
             self.rect.x=self.scene_width-self.rect.width
-
-
-

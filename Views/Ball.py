@@ -56,7 +56,3 @@ class BallObject(AbstractMovableObject):
     def reset_position(self):
         self.x_position = SceneObject.width // 2
         self.y_position = SceneObject.height - 50
-
-
-
-
