@@ -22,7 +22,8 @@ class Game:
         pygame.init()
         pygame.display.set_caption("Arkanoid Game")
         self.window_surface = pygame.display.set_mode((800, 600))
-        self.manager = UIManager(self.window_surface.get_size())
+
+        self.manager = UIManager(self.window_surface.get_size(), "../Assets/themes.json")
 
         self.launch_game(self.manager)
 
@@ -65,7 +66,6 @@ class Game:
                 if event.type == pygame.QUIT:
                     is_running = False
 
-                # Обробка натискань кнопок на поточному екрані
                 new_screen = current_screen.process_events(event)
                 if new_screen:
                     manager.clear_and_reset()
