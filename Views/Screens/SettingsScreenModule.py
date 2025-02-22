@@ -1,17 +1,14 @@
-import pygame
-import pygame_gui
 from pygame import Rect
 from pygame_gui import UI_BUTTON_PRESSED, UIManager
 from pygame_gui.elements import UILabel, UIButton, UIHorizontalSlider, UIDropDownMenu
+from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
 
 
-class SettingsScreen:
+class SettingsScreen(AbstractScreen):
     manager: UIManager
 
     def __init__(self, manager, window_surface):
-        self.background = pygame.Surface(window_surface.get_size())
-        self.manager = manager
-        self.background.fill('LavenderBlush')
+        super().__init__(manager, window_surface)
 
         self.window_width, self.window_height = window_surface.get_size()
         self.layout_elements()
@@ -21,10 +18,6 @@ class SettingsScreen:
             return "menu"
 
         return None
-
-    def draw(self, manager, window_surface):
-        window_surface.blit(self.background, (0, 0))
-        manager.draw_ui(window_surface)
 
     def layout_elements(self):
         padding_x = 30
