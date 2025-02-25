@@ -3,7 +3,7 @@ from Models.Bonus import BonusObject
 from Views.Abstract_classes.AbstractStaticObject import AbstractStaticObject
 
 class LevelPlateObject(AbstractStaticObject):
-
+    alpha_values = {3: 255, 2: 170, 1: 85}
     hit_points: int
     plate_type: str # standard plate or with a bonus, for example
     alpha:int
@@ -18,23 +18,26 @@ class LevelPlateObject(AbstractStaticObject):
     def render(self, screen):
         """ Малює платформу, якщо вона видима """
         if self.is_visible:
-         pygame.draw.rect(screen, self.color, self.rect)
-
+            surface = pygame.Surface((self.rect.width, self.rect.height), pygame.SRCALPHA)
+            surface.fill((self.color.r, self.color.g, self.color.b, self.alpha))
+            screen.blit(surface, self.rect.topleft)
 
     def decrease_hit_points(self):
         """ Зменшує міцність платформи, робить її невидимою при руйнуванні """
         if self.is_breakable:
             self.hit_points -= 1
             if self.hit_points > 0:
-                alpha_values = {3: 255, 2: 170, 1: 85}
-                self.alpha = alpha_values.get(self.hit_points,50)
+                self.alpha = self.alpha_values.get(self.hit_points,50)
                 self.color.a = self.alpha
             else:
                 self.is_visible = False
 
 
     def spawn_bonus(self) -> BonusObject:
-        pass
+        if self.plate_type == 'bonus':
+            return BonusObject("d", True,5)
 
     def update_state(self):
-        pass
+        """ Плавне зникнення після руйнування"""
+        if not self.is_visible and self.alpha > 0:
+            self.alpha = max(self.alpha-10,0)
