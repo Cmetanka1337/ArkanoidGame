@@ -3,6 +3,7 @@ from pygame import Rect
 from pygame_gui import UI_BUTTON_PRESSED
 from pygame_gui.elements import UILabel, UIButton
 
+from Views.AdditionalBallsBonus import AdditionalBallsBonus
 from Views.Ball import BallObject
 from Views.Screens.PauseScreenModule import PauseScreen
 from Views.UserPlate import UserPlateObject
@@ -16,6 +17,7 @@ class GameScreen(AbstractScreen):
         self.elements = []
         self.is_running = True
         self.run_game(clock)
+
 
     def process_events(self, event):
         if event.type == UI_BUTTON_PRESSED and event.ui_element == self.pause_button:
@@ -46,8 +48,11 @@ class GameScreen(AbstractScreen):
 
     def run_game(self, clock):
         plate = UserPlateObject(400, 500, 200, 50, pygame.Color(127, 127, 127), 20)
-        ball = BallObject(200, 100, 10, 10, pygame.Color(255, 0, 0), 5, [1, 1], 5)
-
+        ball1 = BallObject(200, 100, 10, 10, pygame.Color(255, 0, 0), 5, [1, 1], 5,True)
+        additional_balls_bonus = AdditionalBallsBonus(300,100,20,20,pygame.Color(255, 0, 0), 5, [0,1], 5,False,2)
+        self.balls = [] #added array of balls on the screen
+        self.balls.append(ball1)
+        #additional_balls_bonus.activate(self)
         self.layout_elements()
         paused = False
         pause_screen = None
@@ -88,14 +93,21 @@ class GameScreen(AbstractScreen):
                     plate.move_to(plate.rect.x + plate.speed, plate.rect.y)
 
                 self.window_surface.blit(self.background, (0, 0))
+                for ball in self.balls:
+                    ball.update_position()
+                    ball.calculate_reflection(plate)
 
-                ball.update_position()
-                ball.calculate_reflection(plate)
             else:
                 pause_screen.draw()
 
-            ball.render(self.window_surface)
+            for ball in self.balls:
+                ball.render(self.window_surface)
+
+            additional_balls_bonus.calculate_reflection(plate, self)
+            additional_balls_bonus.update_position()
+
             plate.render(self.window_surface)
+            additional_balls_bonus.render(self.window_surface)
 
             self.manager.update(time_delta)
             self.manager.draw_ui(self.window_surface)

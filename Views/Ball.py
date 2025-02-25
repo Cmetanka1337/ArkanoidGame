@@ -6,19 +6,22 @@ class BallObject(AbstractMovableObject):
     speed: float
     move_direction: list #я змінив тип на список ,тому що кортеж незмінний тип
     radius: float
+    is_visible: bool
 
     def __init__(self, x_position: float, y_position: float,
                  height: float, width: float,
                  color: pygame.Color,
-                 speed: float, move_direction: list, radius: float):
+                 speed: float, move_direction: list, radius: float, is_visible: bool):
         super().__init__(x_position, y_position, height, width, color, True)
         self.speed = speed
         self.move_direction = move_direction
         self.radius = radius
+        self.is_visible = is_visible
 
 
     def render(self,screen):
-        pygame.draw.circle(screen, self.color,(int(self.x_position), int(self.y_position)),int(self.radius))
+        if self.is_visible:
+            pygame.draw.circle(screen, self.color, (int(self.x_position), int(self.y_position)), int(self.radius))
 
     def move_to(self, x: float, y: float):
         #встановлюємо напрямок руху а потім рухаємо в тому напрямку мяч змінюючи координати х та у
@@ -33,6 +36,11 @@ class BallObject(AbstractMovableObject):
         """
         self.x_position += self.speed * self.move_direction[0]
         self.y_position += self.speed * self.move_direction[1]
+
+        if self.y_position - self.radius > SceneObject.height:
+            self.is_visible = False
+
+
 
     # метод, який обчислює траекторії руху після зіткнення з будь - яким обʼєктом.
     def calculate_reflection(self,user_plate):
