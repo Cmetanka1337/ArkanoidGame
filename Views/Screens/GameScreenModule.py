@@ -3,6 +3,7 @@ from pygame import Rect
 from pygame_gui import UI_BUTTON_PRESSED
 from pygame_gui.elements import UILabel, UIButton
 
+from Models.LevelManager import LevelManager
 from Views.AdditionalBallsBonus import AdditionalBallsBonus
 from Views.Ball import BallObject
 from Views.Screens.PauseScreenModule import PauseScreen
@@ -12,8 +13,9 @@ from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
 
 class GameScreen(AbstractScreen):
 
-    def __init__(self, manager, window_surface, clock):
+    def __init__(self, manager, window_surface, clock,selected_level):
         super().__init__(manager, window_surface)
+        self.selected_level = selected_level
         self.elements = []
         self.is_running = True
         self.run_game(clock)
@@ -47,6 +49,8 @@ class GameScreen(AbstractScreen):
         self.elements.clear()
 
     def run_game(self, clock):
+        level_manager = LevelManager(self.window_width, self.window_height)
+        level_manager.load_level(self.selected_level)
         plate = UserPlateObject(400, 500, 200, 50, pygame.Color(127, 127, 127), 20)
         ball1 = BallObject(200, 100, 10, 10, pygame.Color(255, 0, 0), 5, [1, 1], 5,True)
         additional_balls_bonus = AdditionalBallsBonus(300,100,20,20,pygame.Color(255, 0, 0), 5, [0,1], 5,False,2)
@@ -95,13 +99,16 @@ class GameScreen(AbstractScreen):
                 self.window_surface.blit(self.background, (0, 0))
                 for ball in self.balls:
                     ball.update_position()
-                    ball.calculate_reflection(plate)
+                    ball.calculate_reflection(plate,level_manager)
 
             else:
                 pause_screen.draw()
 
             for ball in self.balls:
                 ball.render(self.window_surface)
+
+            for block in level_manager.blocks:
+                block.render(self.window_surface)
 
             additional_balls_bonus.calculate_reflection(plate, self)
             additional_balls_bonus.update_position()

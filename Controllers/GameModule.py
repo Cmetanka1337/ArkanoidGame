@@ -72,7 +72,7 @@ class Game:
 
                     manager.clear_and_reset()
                     if new_screen == "game":
-                        current_screen = GameScreen(manager, self.window_surface, clock)
+                        current_screen = GameScreen(manager, self.window_surface, clock,selected_level=1)
                         current_screen = MenuScreen(manager, self.window_surface)
                     elif new_screen == "settings":
                         current_screen = SettingsScreen(manager, self.window_surface)
