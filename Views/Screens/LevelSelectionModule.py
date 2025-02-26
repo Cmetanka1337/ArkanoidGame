@@ -17,6 +17,14 @@ class LevelSelection(AbstractScreen):
         if event.type == UI_BUTTON_PRESSED and event.ui_element == self.back_button:
             return "menu"
         if event.type == UI_BUTTON_PRESSED and event.ui_element == self.start_button:
+            selected_option = self.level_menu.selected_option
+            if isinstance(selected_option, tuple):
+                selected_option = selected_option[0]
+            try:
+                selected_level = int(selected_option.split()[-1])
+            except ValueError:
+                selected_level = 1
+            self.selected_level = selected_level
             return "game"
         return None
 
@@ -38,7 +46,7 @@ class LevelSelection(AbstractScreen):
         level_menu_rect = Rect(title_rect.x, title_rect.y + padding_y * 4, control_width, label_height)
         self.level_menu = UIDropDownMenu(
             relative_rect=level_menu_rect,
-            options_list=["Level 1"],
+            options_list=["Level 1","Level 2"],
             manager=self.manager,
             starting_option="Level 1"
         )
