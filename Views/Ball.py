@@ -43,6 +43,7 @@ class BallObject(AbstractMovableObject):
 
 
     # метод, який обчислює траекторії руху після зіткнення з будь - яким обʼєктом.
+
     def calculate_reflection(self,user_plate,level_manager):
         #логіка відбиття м'яча від країв екрану
         if self.x_position < self.radius or self.x_position > SceneObject.width - self.radius:
@@ -59,8 +60,7 @@ class BallObject(AbstractMovableObject):
                 if user_plate.rect.x <= self.x_position <= user_plate.rect.x + user_plate.rect.width:
                     # Відбиваємо мяч від платформи (змінюємо вертикальну складову руху)
                     self.move_direction[1] *= -1
-
-                # Відбивання від платформ рівня
+        # Відбивання від платформ рівня
         for plate in level_manager.blocks:
             if plate.is_visible:
                 # Отримуємо координати платформи
@@ -86,7 +86,6 @@ class BallObject(AbstractMovableObject):
                     if plate.is_breakable:
                         plate.decrease_hit_points()
                         plate.update_state()
-
 
     #мяч стає посередині екрану по х та знизу по у
     def reset_position(self):

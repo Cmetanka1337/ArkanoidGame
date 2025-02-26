@@ -150,4 +150,5 @@ class LevelManager:
 
     def render(self, screen):
         for block in self.blocks:
-            block.render(screen)
+          block.render(screen)
+

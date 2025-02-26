@@ -41,3 +41,4 @@ class LevelPlateObject(AbstractStaticObject):
         """ Плавне зникнення після руйнування"""
         if not self.is_visible and self.alpha > 0:
             self.alpha = max(self.alpha-10,0)
+

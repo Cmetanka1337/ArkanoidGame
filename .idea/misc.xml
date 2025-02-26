@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Black">
-    <option name="sdkName" value="Python 3.9 (Arknoid_Game)" />
+    <option name="sdkName" value="Python 3.12 (Arknoid_Game)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (ArkanoidMyPart)" project-jdk-type="Python SDK" />
-</project>
+
