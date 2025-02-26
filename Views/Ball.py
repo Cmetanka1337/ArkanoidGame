@@ -43,7 +43,7 @@ class BallObject(AbstractMovableObject):
 
 
     # метод, який обчислює траекторії руху після зіткнення з будь - яким обʼєктом.
-    def calculate_reflection(self,user_plate):
+    def calculate_reflection(self,user_plate, level_manager):
         #логіка відбиття м'яча від країв екрану
         if self.x_position < self.radius or self.x_position > SceneObject.width - self.radius:
             self.move_direction[0] *=-1
@@ -59,7 +59,32 @@ class BallObject(AbstractMovableObject):
                 if user_plate.rect.x <= self.x_position <= user_plate.rect.x + user_plate.rect.width:
                     # Відбиваємо мяч від платформи (змінюємо вертикальну складову руху)
                     self.move_direction[1] *= -1
+        # Відбивання від платформ рівня
+        for plate in level_manager.blocks:
+            if plate.is_visible:
+                # Отримуємо координати платформи
+                plate_left = plate.rect.x
+                plate_right = plate.rect.x + plate.rect.width
+                plate_top = plate.rect.y
+                plate_bottom = plate.rect.y + plate.rect.height
 
+                # Перевіряємо зіткнення м'яча з платформою
+                if (plate_left - self.radius <= self.x_position <= plate_right + self.radius and
+                        plate_top - self.radius <= self.y_position <= plate_bottom + self.radius):
+
+                    # Визначаємо, звідки м'яч вдарив у платформу
+                    overlap_x = min(abs(self.x_position - plate_left), abs(self.x_position - plate_right))
+                    overlap_y = min(abs(self.y_position - plate_top), abs(self.y_position - plate_bottom))
+
+                    if overlap_x > overlap_y:  # Вертикальне зіткнення
+                        self.move_direction[1] *= -1
+                    else:  # Горизонтальне зіткнення
+                        self.move_direction[0] *= -1
+
+                    # Якщо платформа ламка, зменшуємо її міцність
+                    if plate.is_breakable:
+                        plate.decrease_hit_points()
+                        plate.update_state()
     #мяч стає посередині екрану по х та знизу по у
     def reset_position(self):
         self.x_position = SceneObject.width // 2
