@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 from Models.Bonus import BonusObject
 from Views.Abstract_classes.AbstractStaticObject import AbstractStaticObject
 from Views.LevelPlate import LevelPlateObject
@@ -14,6 +15,8 @@ class LevelManager:
         self.blocks.clear()
         if level == 1:
             self.generate_rhombus()
+
+
 
     def generate_rhombus(self):
         block_width = 50
@@ -75,6 +78,9 @@ class LevelManager:
                     color=color
                 )
                 self.blocks.append(block)
+
+
+
 
     def render(self, screen):
         for block in self.blocks:
