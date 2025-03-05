@@ -72,15 +72,16 @@ class Game:
 
                     manager.clear_and_reset()
                     if new_screen == "game":
-                        current_screen = GameScreen(manager, self.window_surface, clock,selected_level=1)
-                        current_screen = MenuScreen(manager, self.window_surface)
+                        selected_level = current_screen.selected_level
+                        current_screen = GameScreen(manager, self.window_surface, clock,selected_level=selected_level)
+                        current_screen = LevelSelection(manager, self.window_surface)
                     elif new_screen == "settings":
                         current_screen = SettingsScreen(manager, self.window_surface)
                     elif new_screen == "menu":
                         current_screen = MenuScreen(manager, self.window_surface)
                     elif new_screen == "lvl_selection":
                         current_screen = LevelSelection(manager, self.window_surface)
-
+                        selected_level = current_screen.selected_level
                 manager.process_events(event)
 
             manager.update(time_delta)

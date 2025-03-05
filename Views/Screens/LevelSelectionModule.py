@@ -10,6 +10,7 @@ class LevelSelection(AbstractScreen):
         super().__init__(manager, window_surface)
 
         self.window_width, self.window_height = window_surface.get_size()
+        self.selected_level=1
         self.layout_elements()
 
 
