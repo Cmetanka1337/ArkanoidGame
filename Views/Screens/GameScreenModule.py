@@ -1,4 +1,5 @@
 import pygame
+#from main import level_manager
 from pygame import Rect
 from pygame_gui import UI_BUTTON_PRESSED
 from pygame_gui.elements import UILabel, UIButton
@@ -146,16 +147,18 @@ class GameScreen(AbstractScreen):
             for ball in self.balls:
                 ball.render(self.window_surface)
 
+            print(len(self.level_manager.blocks))
+
             # Рендер блоків рівня
-            for block in level_manager.blocks:
+            for block in self.level_manager.blocks[:]:
                 block.render(self.window_surface)
-                # Якщо блок бонусовий і був зруйнований, спаунити бонус
+                # Якщо блок бонусовий і був зруйнований, спаунити бонус і видалити блок
                 if block.plate_type == "bonus" and not block.is_visible:
                     bonus = block.spawn_bonus()  # spawn_bonus повертає об’єкт, похідний від AbstractBonusObject
                     if bonus:
                         self.active_bonuses.append(bonus)
-                        # Щоб блок бонусу не спаунювався повторно, можна змінити його plate_type або інший прапорець
-                        block.plate_type = "standard"
+                    # Видаляємо бонус-блок із рівня, щоб він не заважав переходу на наступний рівень
+                    self.level_manager.remove_block(block)
 
             # Оновлення та рендер активних бонусів
             for bonus in self.active_bonuses[:]:
