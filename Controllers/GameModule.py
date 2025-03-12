@@ -7,6 +7,7 @@ from Views.Screens.LevelSelectionModule import LevelSelection
 from Views.Screens.SettingsScreenModule import SettingsScreen
 from Views.Screens.GameScreenModule import GameScreen
 from Views.Screens.MainMenuScreenModule import MenuScreen
+from Views.Screens.LevelEndScreen import LevelEndScreen
 
 
 class Game:
@@ -55,11 +56,11 @@ class Game:
     def change_volume(self):
         pass
 
-
     def launch_game(self, manager):
         clock = pygame.time.Clock()
         is_running = True
         current_screen = MenuScreen(manager, self.window_surface)
+        selected_level = None  # Додаємо змінну для відстеження рівня
 
         while is_running:
             time_delta = clock.tick(60) / 1000.0
@@ -69,12 +70,40 @@ class Game:
 
                 new_screen = current_screen.process_events(event)
                 if new_screen:
-
                     manager.clear_and_reset()
                     if new_screen == "game":
                         selected_level = current_screen.selected_level
-                        current_screen = GameScreen(manager, self.window_surface, clock,selected_level=selected_level)
-                        current_screen = LevelSelection(manager, self.window_surface)
+                        current_screen = GameScreen(manager, self.window_surface, clock,
+                                                    selected_level=selected_level)
+
+
+                    elif new_screen == "level_end":
+
+                        current_screen = LevelEndScreen(self.window_surface, manager, selected_level)
+
+                        result = current_screen.run()  # ОЧІКУЄМО ВИБОРУ КОРИСТУВАЧА
+
+                        print(f"Гравець вибрав: {result}")  # Додаємо перевірку результату
+
+                        if result == "next":
+
+                            selected_level += 1
+
+                            current_screen = GameScreen(manager, self.window_surface, clock,
+                                                        selected_level=selected_level)
+
+
+                        elif result == "retry":
+
+                            current_screen = GameScreen(manager, self.window_surface, clock,
+                                                        selected_level=selected_level)
+
+
+                        elif result == "menu":
+
+                            current_screen = MenuScreen(manager, self.window_surface)
+
+
                     elif new_screen == "settings":
                         current_screen = SettingsScreen(manager, self.window_surface)
                     elif new_screen == "menu":
@@ -82,10 +111,9 @@ class Game:
                     elif new_screen == "lvl_selection":
                         current_screen = LevelSelection(manager, self.window_surface)
                         selected_level = current_screen.selected_level
-                manager.process_events(event)
 
+            manager.process_events(event)
             manager.update(time_delta)
             current_screen.draw()
             pygame.display.update()
-
 Game()

@@ -9,7 +9,7 @@ from Views.Ball import BallObject
 from Views.Screens.PauseScreenModule import PauseScreen
 from Views.UserPlate import UserPlateObject
 from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
-
+from Views.Screens.LevelEndScreen import LevelEndScreen
 
 class GameScreen(AbstractScreen):
 
@@ -27,7 +27,19 @@ class GameScreen(AbstractScreen):
 
     def update1(self, time_delta):
         if not self.level_manager.blocks:
+            print("Рівень завершено! Показуємо LevelEndScreen.")  # Додай для перевірки
+            self.show_level_end_screen()
+
+    def show_level_end_screen(self):
+        level_end_screen = LevelEndScreen(self.window_surface, self.manager, self.selected_level)
+        result = level_end_screen.run()
+
+        if result == "next":
             self.next_level()
+        elif result == "retry":
+            self.restart_level()
+        elif result == "menu":
+            self.is_running = False  # Вихід в меню
 
     def next_level(self):
         if self.selected_level < 2:
@@ -37,6 +49,9 @@ class GameScreen(AbstractScreen):
         else:
             self.is_running = False  # Завершення гри після останнього рівня
 
+    def restart_level(self):
+        self.level_manager.load_level(self.selected_level)
+        self.initialize_game_elements()
     def initialize_game_elements(self):
         self.plate = UserPlateObject(400, 500, 200, 50, pygame.Color(127, 127, 127), 20)
         self.balls = [BallObject(200, 100, 10, 10, pygame.Color(255, 0, 0), 5, [1, 1], 5, True)]
@@ -65,10 +80,7 @@ class GameScreen(AbstractScreen):
         )
         self.elements.append(self.hp_label)
 
-    def destroy(self):
-        for element in self.elements:
-            element.kill()
-        self.elements.clear()
+
 
     def run_game(self, clock):
         self.layout_elements()

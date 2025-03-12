@@ -5,6 +5,8 @@ from Models.Bonus import BonusObject
 from Views.Abstract_classes.AbstractStaticObject import AbstractStaticObject
 from Views.LevelPlate import LevelPlateObject
 
+
+
 class LevelManager:
     def __init__(self, screen_width, screen_height):
         self.screen_width = screen_width
@@ -35,7 +37,8 @@ class LevelManager:
                     y_position=y,
                     height=block_height,
                     width=block_width,
-                    color=color
+                    color=color,
+                    level_manager=self
                 )
                 self.blocks.append(block)
 
@@ -60,7 +63,8 @@ class LevelManager:
                     y_position=y,
                     height=block_height,
                     width=block_width,
-                    color=color
+                    color=color,
+                    level_manager=self
                 )
                 self.blocks.append(block)
 
@@ -77,7 +81,8 @@ class LevelManager:
                     y_position=y,
                     height=block_height,
                     width=block_width,
-                    color=color
+                    color=color,
+                    level_manager=self
                 )
                 self.blocks.append(block)
 
@@ -107,7 +112,8 @@ class LevelManager:
                     y_position=y,
                     height=block_height,
                     width=block_width,
-                    color=color
+                    color=color,
+                    level_manager=self
                 )
                 self.blocks.append(block)
 
@@ -124,7 +130,8 @@ class LevelManager:
                 y_position=crossbar_y,
                 height=block_height,
                 width=block_width,
-                color=color
+                color=color,
+                level_manager=self
             )
             self.blocks.append(block)
 
@@ -144,9 +151,15 @@ class LevelManager:
                 y_position=y,
                 height=block_height,
                 width=block_width,
-                color=color
+                color=color,
+                level_manager=self
             )
             self.blocks.append(block)
+
+    def remove_block(self, block):
+        """ Видаляє платформу з рівня """
+        if block in self.blocks:
+            self.blocks.remove(block)
 
     def render(self, screen):
         for block in self.blocks:
