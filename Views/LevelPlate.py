@@ -1,5 +1,6 @@
 import pygame
 from Models.Bonus import BonusObject
+from Views.Abstract_classes.AbstractBonusObject import AbstractBonusObject
 from Views.Abstract_classes.AbstractStaticObject import AbstractStaticObject
 
 class LevelPlateObject(AbstractStaticObject):
@@ -15,6 +16,7 @@ class LevelPlateObject(AbstractStaticObject):
         self.alpha = 255
         self.rect = pygame.Rect(x_position, y_position, width, height)
         self.color.a = self.alpha
+        self.active_bonuses = []
     def render(self, screen):
         """ Малює платформу, якщо вона видима """
         if self.is_visible:
@@ -31,11 +33,51 @@ class LevelPlateObject(AbstractStaticObject):
                 self.color.a = self.alpha
             else:
                 self.is_visible = False
-
+        if self.plate_type == 'bonus':
+            bonus = self.spawn_bonus()
+            if bonus:
+                # Додайте бонус до списку активних бонусів (наприклад, self.active_bonuses)
+                self.active_bonuses.append(bonus)
+            self.is_visible = False
 
     def spawn_bonus(self) -> BonusObject:
         if self.plate_type == 'bonus':
-            return BonusObject("d", True,5)
+            # Можна, наприклад, випадково вибирати бонус між ExtendPlatformBonus і AdditionalBallsBonus
+            import random
+            from Views.ExtendPlatformBonus import ExtendPlatformBonus
+            from Views.AdditionalBallsBonus import AdditionalBallsBonus
+            bonus_classes = [ExtendPlatformBonus, AdditionalBallsBonus]
+            bonus_class = random.choice(bonus_classes)
+            # Створимо бонус у центрі блоку, задаючи параметри (вони можуть бути налаштовані)
+            if bonus_class == ExtendPlatformBonus:
+                bonus = bonus_class(
+                    x_position=self.rect.centerx,
+                    y_position=self.rect.centery,
+                    height=20,
+                    width=20,
+                    color=self.color,
+                    speed=5,
+                    move_direction=[0, 1],  # бонус падає вниз
+                    radius=10,
+                    is_active=False,
+                    duration=10,  # бонус діятиме 10 секунд (для ExtendPlatformBonus)
+                    extend_size=400  # приклад параметра для розширення платформи
+                )
+            else:
+                bonus = bonus_class(
+                    x_position=self.rect.centerx,
+                    y_position=self.rect.centery,
+                    height=20,
+                    width=20,
+                    color=self.color,
+                    speed=5,
+                    move_direction=[0, 1],  # бонус падає вниз
+                    radius=10,
+                    is_active=False,
+                    balls_number = 2
+                )
+
+            return bonus
 
     def update_state(self):
         """ Плавне зникнення після руйнування"""
