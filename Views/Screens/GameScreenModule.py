@@ -10,6 +10,7 @@ from Views.ExtendPlatformBonus import ExtendPlatformBonus
 from Views.Screens.PauseScreenModule import PauseScreen
 from Views.UserPlate import UserPlateObject
 from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
+from Views.Abstract_classes.AbstractBonusObject import AbstractBonusObject
 
 
 class GameScreen(AbstractScreen):
@@ -21,7 +22,6 @@ class GameScreen(AbstractScreen):
         self.elements = []
         self.is_running = True
         self.run_game(clock)
-        
 
 
     def process_events(self, event):
@@ -53,16 +53,18 @@ class GameScreen(AbstractScreen):
         self.elements.clear()
 
     def run_game(self, clock):
+        # Завантаження рівня
         level_manager = LevelManager(self.window_width, self.window_height)
         level_manager.load_level(self.selected_level)
+
+        # Створення основних об’єктів
         plate = UserPlateObject(400, 500, 200, 50, pygame.Color(127, 127, 127), 20)
-        ball1 = BallObject(200, 100, 10, 10, pygame.Color(255, 0, 0), 5, [1, 1], 5,True)
-        additional_balls_bonus = AdditionalBallsBonus(300,100,20,20,pygame.Color(255, 0, 0), 5, [0,1], 5,False,2)
-        extend_platform_bonus = ExtendPlatformBonus(300,100,20,20,pygame.Color(255, 0, 0), 5, [0,1], 5,False,10,400)
-        extend_platform_bonus.activate(plate)
-        self.balls = [] #added array of balls on the screen
-        self.balls.append(ball1)
-        #additional_balls_bonus.activate(self)
+        ball1 = BallObject(200, 100, 10, 10, pygame.Color(255, 0, 0), 5, [1, 1], 5, True)
+
+        # Списки активних об’єктів
+        self.balls = [ball1]
+        self.active_bonuses = []  # сюди будемо додавати бонуси, що спаунені блоками
+
         self.layout_elements()
         paused = False
         pause_screen = None
@@ -103,39 +105,47 @@ class GameScreen(AbstractScreen):
                     plate.move_to(plate.rect.x + plate.speed, plate.rect.y)
 
                 self.window_surface.blit(self.background, (0, 0))
-                for ball in self.balls:
+
+                # Оновлення м’ячів
+                for ball in self.balls[:]:
                     ball.update_position(self)
-                    ball.calculate_reflection(plate,level_manager)
-                    #віднімання хп коли мяч вилітає за межі екрану
+                    ball.calculate_reflection(plate, level_manager)
                     if ball.y_position - ball.radius > self.window_height:
                         self.hp -= 1
                         self.hp_label.set_text("HP: " + str(self.hp))
                         self.balls.remove(ball)
-
             else:
                 pause_screen.draw()
 
+            # Рендер м’ячів
             for ball in self.balls:
                 ball.render(self.window_surface)
 
+            # Рендер блоків рівня
             for block in level_manager.blocks:
                 block.render(self.window_surface)
+                # Якщо блок бонусовий і був зруйнований, спаунити бонус
+                if block.plate_type == "bonus" and not block.is_visible:
+                    bonus = block.spawn_bonus()  # spawn_bonus повертає об’єкт, похідний від AbstractBonusObject
+                    if bonus:
+                        self.active_bonuses.append(bonus)
+                        # Щоб блок бонусу не спаунювався повторно, можна змінити його plate_type або інший прапорець
+                        block.plate_type = "standard"
 
-            if extend_platform_bonus.is_active:
-                extend_platform_bonus.update(plate)
-                extend_platform_bonus.calculate_reflection(plate, self)
-                extend_platform_bonus.update_position()
-                extend_platform_bonus.render(self.window_surface)
+            # Оновлення та рендер активних бонусів
+            for bonus in self.active_bonuses[:]:
 
-            if additional_balls_bonus.is_active:
-                additional_balls_bonus.calculate_reflection(plate, self)
-                additional_balls_bonus.update_position()
-                additional_balls_bonus.render(self.window_surface)
+                bonus.calculate_reflection(plate, self)
+                bonus.update_position()
+                bonus.render(self.window_surface)
+                if not bonus.is_visible:
+                    self.active_bonuses.remove(bonus)
 
             plate.render(self.window_surface)
-
 
             self.manager.update(time_delta)
             self.manager.draw_ui(self.window_surface)
 
             pygame.display.flip()
+
+

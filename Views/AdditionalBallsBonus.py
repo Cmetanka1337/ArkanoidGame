@@ -18,8 +18,12 @@ class AdditionalBallsBonus(AbstractBonusObject):
         self.balls_number = balls_number
     #adds balls to screen and activates bonus
     def activate(self, target: "GameScreen"):
-        for ball in range(self.balls_number):
-            target.balls.append(BallObject(200*0.5*ball, 100*0.5*ball, 10, 10, pygame.Color(255, 0, 0), 5, [1, 1], 5,True))
+        print("Активовано бонус, balls_number =", self.balls_number)
+        base_x, base_y = 200, 100  # або позиція вже існуючого м'яча
+        for i in range(int(self.balls_number)):
+            new_x = base_x + i * 20  # зсув по горизонталі
+            new_y = base_y  # або додатковий зсув по вертикалі
+            target.balls.append(BallObject(new_x, new_y, 10, 10, pygame.Color(255, 0, 0), 5, [1, 1], 5, True))
         self.is_active = True
 
 
