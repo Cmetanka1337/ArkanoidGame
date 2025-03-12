@@ -29,9 +29,10 @@ class LevelManager:
                 x = center_x + side * (rows + 1) * (block_width + 5)
                 y = center_y + i * (block_height + 5)
                 color = pygame.Color(*random.choice(colors))
+                plate_type = "bonus" if random.random() < 0.2 else "standard"
                 block = LevelPlateObject(
                     hit_points=3,
-                    plate_type='standard',
+                    plate_type=plate_type,
                     is_breakable=True,
                     x_position=x,
                     y_position=y,
@@ -55,9 +56,10 @@ class LevelManager:
                 x = center_x + col * (block_width + 5)
                 y = center_y + row * (block_height + 5)
                 color = pygame.Color(*random.choice(colors))
+                plate_type = "bonus" if random.random() < 0.2 else "standard"
                 block = LevelPlateObject(
                     hit_points=3,
-                    plate_type='standard',
+                    plate_type=plate_type,
                     is_breakable=True,
                     x_position=x,
                     y_position=y,
@@ -73,9 +75,10 @@ class LevelManager:
                 x = center_x + col * (block_width + 5)
                 y = center_y + (rows * 2 - row - 2) * (block_height + 5)
                 color = pygame.Color(*random.choice(colors))
+                plate_type = "bonus" if random.random() < 0.2 else "standard"
                 block = LevelPlateObject(
                     hit_points=3,
-                    plate_type='standard',
+                    plate_type=plate_type,
                     is_breakable=True,
                     x_position=x,
                     y_position=y,
@@ -104,9 +107,10 @@ class LevelManager:
                 x = center_x + side * row * (block_width + 5)
                 y = center_y + row * (block_height + 5)
                 color = pygame.Color(*random.choice(colors))
+                plate_type = "bonus" if random.random() < 0.2 else "standard"
                 block = LevelPlateObject(
                     hit_points=3,
-                    plate_type='standard',
+                    plate_type=plate_type,
                     is_breakable=True,
                     x_position=x,
                     y_position=y,
@@ -122,9 +126,10 @@ class LevelManager:
         for col in range(-2, 3):  # 5 блоків посередині
             x = center_x + col * (block_width + 5)
             color = pygame.Color(*random.choice(colors))
+            plate_type = "bonus" if random.random() < 0.2 else "standard"
             block = LevelPlateObject(
                 hit_points=3,
-                plate_type='standard',
+                plate_type=plate_type,
                 is_breakable=True,
                 x_position=x,
                 y_position=crossbar_y,
@@ -143,9 +148,10 @@ class LevelManager:
             x = center_x + col * (block_width + 5)
             y = center_y - block_height - 10
             color = pygame.Color(*random.choice(colors))
+            plate_type = "bonus" if random.random() < 0.2 else "standard"
             block = LevelPlateObject(
                 hit_points=3,
-                plate_type='standard',
+                plate_type=plate_type,
                 is_breakable=True,
                 x_position=x,
                 y_position=y,
