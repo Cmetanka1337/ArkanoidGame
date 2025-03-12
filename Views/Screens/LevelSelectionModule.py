@@ -1,7 +1,7 @@
 from pygame import Rect
 from pygame_gui import UI_BUTTON_PRESSED
 from pygame_gui.elements import UILabel, UIButton, UIDropDownMenu
-
+import pygame
 from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
 
 
@@ -10,6 +10,7 @@ class LevelSelection(AbstractScreen):
         super().__init__(manager, window_surface)
 
         self.window_width, self.window_height = window_surface.get_size()
+        self.selected_level=1
         self.layout_elements()
 
 
@@ -64,3 +65,4 @@ class LevelSelection(AbstractScreen):
             text="Back",
             manager=self.manager
         )
+
