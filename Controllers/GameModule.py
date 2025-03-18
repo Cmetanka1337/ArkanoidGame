@@ -13,57 +13,27 @@ from Views.Screens.MainMenuScreenModule import MenuScreen
 from Views.Screens.LevelEndScreen import LevelEndScreen
 
 selected_language: LocalizedStrings = LocalizedStringEnglish()
+
 class Game:
-
-    # end_score: int = 0
-    # background_color: str
-    # language: str
-    # volume: float
-
     manager: IUIManagerInterface
     window_surface: Surface
 
-# create new global variable selected_language. from this variable all buttons, labels, etc. will get their text
     def __init__(self):
         pygame.init()
         pygame.mixer.init()
 
         pygame.display.set_caption("Arkanoid Game")
-        pygame.mixer.music.load("../Assets/sounds/background_music.mp3")
 
+        pygame.mixer.music.load("../Assets/sounds/background_music.mp3")
         pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.15)
 
         self.window_surface = pygame.display.set_mode((800, 600))
 
         self.manager = UIManager(self.window_surface.get_size(), "../Assets/themes.json")
-        print(pygame.font.get_fonts())
         self.launch_game(self.manager)
 
-    def start(self):
-        pass
-
-    def level_selection(self):
-        pass
-
-    def finish_game(self):
-        pass
-
     def draw_scene(self) -> SceneObject:
-        pass
-
-    def restart(self):
-        pass
-
-    def close(self):
-        pass
-
-    def change_background(self):
-        pass
-
-    def change_language(self):
-        pass
-
-    def change_volume(self):
         pass
 
     def launch_game(self, manager):
@@ -112,6 +82,7 @@ class Game:
 
                     elif new_screen == "settings":
                         settings_controller = SettingsController()
+                        settings_controller.volume = pygame.mixer.music.get_volume()
                         current_screen = SettingsScreen(manager, self.window_surface, settings_controller)
                     elif new_screen == "menu":
                         current_screen = MenuScreen(manager, self.window_surface)

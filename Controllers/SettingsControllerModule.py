@@ -10,16 +10,15 @@ class SettingsController:
     def __init__(self):
         self.background_color = "Light"
         self.language = LocalizedStringEnglish()
-        self.volume = 0.5
+        self.volume = 0.15
 
     def change_background(self, color):
         self.background_color = color
 
     def change_language(self, language: LocalizedStrings):
-        print("Language changed to", language.localized_strings_name)
         from Controllers import GameModule
         GameModule.selected_language = language
-        print("Test", GameModule.selected_language.localized_strings_name)
+        self.language = language
 
     def change_volume(self, volume: float):
         if volume < 0:
@@ -27,6 +26,7 @@ class SettingsController:
         if volume > 1:
             volume = 1
         pygame.mixer.music.set_volume(volume)
+        self.volume = volume
 
     def get_background(self):
         return self.background_color

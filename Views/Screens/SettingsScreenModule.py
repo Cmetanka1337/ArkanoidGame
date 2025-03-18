@@ -1,5 +1,7 @@
+from i18n.config import settings
 from pygame import Rect
-from pygame_gui import UI_BUTTON_PRESSED, UIManager, UI_2D_SLIDER_MOVED, UI_DROP_DOWN_MENU_CHANGED
+from pygame_gui import UI_BUTTON_PRESSED, UIManager, UI_2D_SLIDER_MOVED, UI_DROP_DOWN_MENU_CHANGED, \
+    UI_HORIZONTAL_SLIDER_MOVED
 from pygame_gui.elements import UILabel, UIButton, UIHorizontalSlider, UIDropDownMenu
 from Models.LocalizedStringEnglish import LocalizedStringEnglish
 from Models.LocalizedStringUkrainian import LocalizedStringUkrainian
@@ -25,10 +27,12 @@ class SettingsScreen(AbstractScreen):
     def process_events(self, event):
         if event.type == UI_BUTTON_PRESSED and event.ui_element == self.back_button:
             return "menu"
-        elif event.type == UI_2D_SLIDER_MOVED and event.ui_element == self.music_level_slider:
-            pass
+        elif event.type == UI_HORIZONTAL_SLIDER_MOVED and event.ui_element == self.music_level_slider:
+            self.settings_controller.change_volume(self.music_level_slider.get_current_value())
+
         elif event.type == UI_DROP_DOWN_MENU_CHANGED and event.ui_element == self.background_color_menu:
             self.settings_controller.set_background_color(self.background_color_menu.selected_option)
+
         elif event.type == UI_DROP_DOWN_MENU_CHANGED and event.ui_element == self.language_menu:
             selected_language = self.language_map.get(self.language_menu.selected_option[0])
             if selected_language:
@@ -98,8 +102,8 @@ class SettingsScreen(AbstractScreen):
         music_level_slider_rect = Rect(control_x, music_level_label_rect.centery - 10, slider_width, 20)
         self.music_level_slider = UIHorizontalSlider(
             relative_rect=music_level_slider_rect,
-            start_value=0,
-            value_range=(0, 5),
+            start_value=self.settings_controller.get_volume(),
+            value_range=(0, 1),
             manager=self.manager
         )
 
