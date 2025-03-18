@@ -20,11 +20,12 @@ class MenuScreen(AbstractScreen):
             return None
 
     def layout_elements(self):
+        from Controllers import GameModule
         label_rect = pygame.Rect(0, 100, 250, 50)
         label_rect.centerx = self.window_surface.get_width() // 2
         self.label = pygame_gui.elements.UILabel(
             relative_rect=label_rect,
-            text="Arkanoid Game",
+            text=GameModule.selected_language.game_name_str,
             manager=self.manager
         )
 
@@ -32,7 +33,7 @@ class MenuScreen(AbstractScreen):
         start_button_rect.centerx = self.window_surface.get_width() // 2
         self.start_button = pygame_gui.elements.UIButton(
             relative_rect=start_button_rect,
-            text="Start Game",
+            text=GameModule.selected_language.start_str,
             manager=self.manager
         )
 
@@ -40,6 +41,6 @@ class MenuScreen(AbstractScreen):
         settings_button_rect.centerx = self.window_surface.get_width() // 2
         self.settings_button = pygame_gui.elements.UIButton(
             relative_rect=settings_button_rect,
-            text="Settings",
+            text=GameModule.selected_language.settings_str,
             manager=self.manager
         )

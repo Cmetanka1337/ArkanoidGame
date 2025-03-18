@@ -26,7 +26,13 @@ class Game:
 # create new global variable selected_language. from this variable all buttons, labels, etc. will get their text
     def __init__(self):
         pygame.init()
+        pygame.mixer.init()
+
         pygame.display.set_caption("Arkanoid Game")
+        pygame.mixer.music.load("../Assets/sounds/background_music.mp3")
+
+        pygame.mixer.music.play(-1)
+
         self.window_surface = pygame.display.set_mode((800, 600))
 
         self.manager = UIManager(self.window_surface.get_size(), "../Assets/themes.json")
@@ -113,7 +119,8 @@ class Game:
                         current_screen = LevelSelection(manager, self.window_surface)
                         selected_level = current_screen.selected_level
 
-            manager.process_events(event)
+                manager.process_events(event)
+
             manager.update(time_delta)
             current_screen.draw()
             pygame.display.update()

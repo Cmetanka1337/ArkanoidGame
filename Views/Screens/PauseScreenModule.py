@@ -2,7 +2,6 @@ import pygame
 from pygame import Rect
 from pygame_gui import UI_BUTTON_PRESSED
 from pygame_gui.elements import UIButton, UILabel
-from pygame_gui import UIManager
 from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
 
 
@@ -14,13 +13,13 @@ class PauseScreen(AbstractScreen):
         self.layout_elements()
 
     def layout_elements(self):
+        from Controllers import GameModule
         """Розташування елементів UI на екрані паузи."""
-        # self.window_width, self.window_height = self.window_surface.get_size()
 
         title_rect = Rect((self.window_width // 2 - 120, 100), (250, 100))
         self.title_label = UILabel(
             relative_rect=title_rect,
-            text="Game Is Paused",
+            text=GameModule.selected_language.game_is_paused_str,
             manager=self.manager
         )
         self.elements.append(self.title_label)
@@ -28,7 +27,7 @@ class PauseScreen(AbstractScreen):
         return_button_rect = Rect(title_rect.x + 50, title_rect.y + 120, 150, 50)
         self.return_button = UIButton(
             relative_rect=return_button_rect,
-            text="Return",
+            text=GameModule.selected_language.return_str,
             manager=self.manager
         )
         self.elements.append(self.return_button)
@@ -36,7 +35,7 @@ class PauseScreen(AbstractScreen):
         back_button_rect = Rect(return_button_rect.x, return_button_rect.y + 60, 150, 50)
         self.back_button = UIButton(
             relative_rect=back_button_rect,
-            text="Back To Menu",
+            text=GameModule.selected_language.back_to_menu_str,
             manager=self.manager
         )
         self.elements.append(self.back_button)
