@@ -1,5 +1,5 @@
 from pygame import Rect
-from pygame_gui import UI_BUTTON_PRESSED, UIManager
+from pygame_gui import UI_BUTTON_PRESSED, UIManager, UI_2D_SLIDER_MOVED, UI_DROP_DOWN_MENU_CHANGED
 from pygame_gui.elements import UILabel, UIButton, UIHorizontalSlider, UIDropDownMenu
 from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
 
@@ -7,15 +7,22 @@ from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
 class SettingsScreen(AbstractScreen):
     manager: UIManager
 
-    def __init__(self, manager, window_surface):
+    def __init__(self, manager, window_surface, settings_controller):
         super().__init__(manager, window_surface)
 
+        self.settings_controller = settings_controller
         self.window_width, self.window_height = window_surface.get_size()
         self.layout_elements()
 
     def process_events(self, event):
         if event.type == UI_BUTTON_PRESSED and event.ui_element == self.back_button:
             return "menu"
+        elif event.type == UI_2D_SLIDER_MOVED and event.ui_element == self.music_level_slider:
+            pass
+        elif event.type == UI_DROP_DOWN_MENU_CHANGED and event.ui_element == self.background_color_menu:
+            self.settings_controller.set_background_color(self.background_color_menu.selected_option)
+        elif event.type == UI_DROP_DOWN_MENU_CHANGED and event.ui_element == self.language_menu:
+            self.settings_controller.set_language(self.language_menu.selected_option)
 
         return None
 

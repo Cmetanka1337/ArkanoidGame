@@ -3,23 +3,27 @@ from pygame import Surface
 from pygame_gui import UIManager
 from pygame_gui.core.interfaces import IUIManagerInterface
 from Controllers.SceneModule import SceneObject
+from Controllers.SettingsControllerModule import SettingsController
+from Models.LocalizedStringEnglish import LocalizedStringEnglish
+from Models.LocalizedStrings import LocalizedStrings
 from Views.Screens.LevelSelectionModule import LevelSelection
 from Views.Screens.SettingsScreenModule import SettingsScreen
 from Views.Screens.GameScreenModule import GameScreen
 from Views.Screens.MainMenuScreenModule import MenuScreen
 from Views.Screens.LevelEndScreen import LevelEndScreen
 
-
+selected_language: LocalizedStrings = LocalizedStringEnglish()
 class Game:
 
-    end_score: int = 0
-    background_color: str
-    language: str
-    volume: float
+    # end_score: int = 0
+    # background_color: str
+    # language: str
+    # volume: float
 
     manager: IUIManagerInterface
     window_surface: Surface
 
+# create new global variable selected_language. from this variable all buttons, labels, etc. will get their text
     def __init__(self):
         pygame.init()
         pygame.display.set_caption("Arkanoid Game")
@@ -60,7 +64,7 @@ class Game:
         clock = pygame.time.Clock()
         is_running = True
         current_screen = MenuScreen(manager, self.window_surface)
-        selected_level = None  # Додаємо змінну для відстеження рівня
+        selected_level = None
 
         while is_running:
             time_delta = clock.tick(60) / 1000.0
@@ -73,17 +77,15 @@ class Game:
                     manager.clear_and_reset()
                     if new_screen == "game":
                         selected_level = current_screen.selected_level
-                        current_screen = GameScreen(manager, self.window_surface, clock,
+                        GameScreen(manager, self.window_surface, clock,
                                                     selected_level=selected_level)
-
+                        current_screen = MenuScreen(manager, self.window_surface)
 
                     elif new_screen == "level_end":
 
                         current_screen = LevelEndScreen(self.window_surface, manager, selected_level)
 
-                        result = current_screen.run()  # ОЧІКУЄМО ВИБОРУ КОРИСТУВАЧА
-
-                        print(f"Гравець вибрав: {result}")  # Додаємо перевірку результату
+                        result = current_screen.run()
 
                         if result == "next":
 
@@ -91,7 +93,6 @@ class Game:
 
                             current_screen = GameScreen(manager, self.window_surface, clock,
                                                         selected_level=selected_level)
-
 
                         elif result == "retry":
 
@@ -103,9 +104,9 @@ class Game:
 
                             current_screen = MenuScreen(manager, self.window_surface)
 
-
                     elif new_screen == "settings":
-                        current_screen = SettingsScreen(manager, self.window_surface)
+                        settings_controller = SettingsController()
+                        current_screen = SettingsScreen(manager, self.window_surface, settings_controller)
                     elif new_screen == "menu":
                         current_screen = MenuScreen(manager, self.window_surface)
                     elif new_screen == "lvl_selection":
@@ -116,4 +117,5 @@ class Game:
             manager.update(time_delta)
             current_screen.draw()
             pygame.display.update()
-Game()
+
+game = Game()
