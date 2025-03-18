@@ -20,6 +20,12 @@ class SettingsScreen(AbstractScreen):
             LocalizedStringEnglish.localized_strings_name: LocalizedStringEnglish(),
             LocalizedStringUkrainian.localized_strings_name: LocalizedStringUkrainian()
         }
+
+        self.background_color_map = {
+            "Blue": "blue_themes.json",
+            "Purple" : "purple_theme.json",
+            "Yellow" : "yellow_theme.json"
+        }
         self.settings_controller = settings_controller
         self.window_width, self.window_height = window_surface.get_size()
         self.layout_elements()
@@ -31,7 +37,9 @@ class SettingsScreen(AbstractScreen):
             self.settings_controller.change_volume(self.music_level_slider.get_current_value())
 
         elif event.type == UI_DROP_DOWN_MENU_CHANGED and event.ui_element == self.background_color_menu:
-            self.settings_controller.set_background_color(self.background_color_menu.selected_option)
+            selected_theme = self.background_color_map.get(self.background_color_menu.selected_option)
+            if selected_theme:
+                self.manager = self.settings_controller.set_background_color(self.background_color_menu.selected_option)
 
         elif event.type == UI_DROP_DOWN_MENU_CHANGED and event.ui_element == self.language_menu:
             selected_language = self.language_map.get(self.language_menu.selected_option[0])
@@ -72,9 +80,9 @@ class SettingsScreen(AbstractScreen):
         background_color_menu_rect = Rect(control_x, background_label_rect.y, control_width, label_height)
         self.background_color_menu = UIDropDownMenu(
             relative_rect=background_color_menu_rect,
-            options_list=["Light", "Dark", "Green"],
+            options_list=["Blue", "Purple", "Yellow"],
             manager=self.manager,
-            starting_option="Light"
+            starting_option="Blue"
         )
 
         language_label_rect = Rect(padding_x, background_label_rect.bottom + padding_y, label_width, label_height)

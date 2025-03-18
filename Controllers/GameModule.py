@@ -30,7 +30,7 @@ class Game:
 
         self.window_surface = pygame.display.set_mode((800, 600))
 
-        self.manager = UIManager(self.window_surface.get_size(), "../Assets/themes.json")
+        self.manager = UIManager(self.window_surface.get_size(), "../Assets/purple_theme.json")
         self.launch_game(self.manager)
 
     def draw_scene(self) -> SceneObject:

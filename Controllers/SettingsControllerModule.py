@@ -1,6 +1,6 @@
 import pygame
+from pygame_gui import UIManager
 
-# from Controllers.GameModule import selected_language
 from Models.LocalizedStringEnglish import LocalizedStringEnglish
 from Models.LocalizedStrings import LocalizedStrings
 
@@ -8,12 +8,13 @@ from Models.LocalizedStrings import LocalizedStrings
 class SettingsController:
 
     def __init__(self):
-        self.background_color = "Light"
+        self.background_color = "blue_theme.json"
         self.language = LocalizedStringEnglish()
         self.volume = 0.15
 
-    def change_background(self, color):
-        self.background_color = color
+    def change_background(self, window_surface, color) -> UIManager:
+        manager = UIManager(window_surface.get_size(), f"../Assets/{color}")
+        return manager
 
     def change_language(self, language: LocalizedStrings):
         from Controllers import GameModule
