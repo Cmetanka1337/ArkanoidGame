@@ -12,9 +12,9 @@ class SettingsController:
         self.language = LocalizedStringEnglish()
         self.volume = 0.15
 
-    def change_background(self, window_surface, color) -> UIManager:
-        manager = UIManager(window_surface.get_size(), f"../Assets/{color}")
-        return manager
+    def change_background(self, color: str):
+        from Controllers import GameModule
+        GameModule.selected_theme = color
 
     def change_language(self, language: LocalizedStrings):
         from Controllers import GameModule
@@ -30,7 +30,8 @@ class SettingsController:
         self.volume = volume
 
     def get_background(self):
-        return self.background_color
+        from Controllers import GameModule
+        return GameModule.selected_theme
 
     def get_language(self):
         return self.language

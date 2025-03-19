@@ -1,7 +1,5 @@
-from i18n.config import settings
 from pygame import Rect
-from pygame_gui import UI_BUTTON_PRESSED, UIManager, UI_2D_SLIDER_MOVED, UI_DROP_DOWN_MENU_CHANGED, \
-    UI_HORIZONTAL_SLIDER_MOVED
+from pygame_gui import UI_BUTTON_PRESSED, UIManager, UI_DROP_DOWN_MENU_CHANGED, UI_HORIZONTAL_SLIDER_MOVED
 from pygame_gui.elements import UILabel, UIButton, UIHorizontalSlider, UIDropDownMenu
 from Models.LocalizedStringEnglish import LocalizedStringEnglish
 from Models.LocalizedStringUkrainian import LocalizedStringUkrainian
@@ -11,7 +9,6 @@ from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
 class SettingsScreen(AbstractScreen):
     manager: UIManager
 
-    background_color_menu: UIDropDownMenu
     def __init__(self, manager, window_surface, settings_controller):
         super().__init__(manager, window_surface)
 
@@ -22,10 +19,18 @@ class SettingsScreen(AbstractScreen):
         }
 
         self.background_color_map = {
-            "Blue": "blue_themes.json",
+            "Blue": "blue_theme.json",
             "Purple" : "purple_theme.json",
             "Yellow" : "yellow_theme.json"
         }
+        self.background_keys_list = list(self.background_color_map.keys())
+
+        game_module_background_str = settings_controller.get_background()
+        self.current_background = next(
+            (key for key, value in self.background_color_map.items() if value == game_module_background_str),
+            "Blue"
+        )
+
         self.settings_controller = settings_controller
         self.window_width, self.window_height = window_surface.get_size()
         self.layout_elements()
@@ -37,9 +42,9 @@ class SettingsScreen(AbstractScreen):
             self.settings_controller.change_volume(self.music_level_slider.get_current_value())
 
         elif event.type == UI_DROP_DOWN_MENU_CHANGED and event.ui_element == self.background_color_menu:
-            selected_theme = self.background_color_map.get(self.background_color_menu.selected_option)
+            selected_theme = self.background_color_map.get(self.background_color_menu.selected_option[0])
             if selected_theme:
-                self.manager = self.settings_controller.set_background_color(self.background_color_menu.selected_option)
+                self.settings_controller.change_background(selected_theme)
 
         elif event.type == UI_DROP_DOWN_MENU_CHANGED and event.ui_element == self.language_menu:
             selected_language = self.language_map.get(self.language_menu.selected_option[0])
@@ -80,9 +85,9 @@ class SettingsScreen(AbstractScreen):
         background_color_menu_rect = Rect(control_x, background_label_rect.y, control_width, label_height)
         self.background_color_menu = UIDropDownMenu(
             relative_rect=background_color_menu_rect,
-            options_list=["Blue", "Purple", "Yellow"],
+            options_list=self.background_keys_list ,
             manager=self.manager,
-            starting_option="Blue"
+            starting_option=self.current_background
         )
 
         language_label_rect = Rect(padding_x, background_label_rect.bottom + padding_y, label_width, label_height)
