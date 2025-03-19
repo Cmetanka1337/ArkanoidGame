@@ -25,9 +25,9 @@ class Game:
 
         pygame.display.set_caption("Arkanoid Game")
 
-        # pygame.mixer.music.load("../Assets/sounds/background_music.mp3")
-        # pygame.mixer.music.play(-1)
-        # pygame.mixer.music.set_volume(0.15)
+        pygame.mixer.music.load("../Assets/sounds/background_music.mp3")
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.15)
 
         self.window_surface = pygame.display.set_mode((800, 600))
 
