@@ -32,7 +32,6 @@ class GameScreen(AbstractScreen):
 
     def update1(self, time_delta):
         if not self.level_manager.blocks:
-            print("Рівень завершено! Показуємо LevelEndScreen.")  # Додай для перевірки
             self.show_level_end_screen()
 
     def show_level_end_screen(self):
@@ -152,15 +151,14 @@ class GameScreen(AbstractScreen):
             # Рендер блоків рівня
             for block in self.level_manager.blocks[:]:
                 block.render(self.window_surface)
-                # Якщо блок бонусовий і був зруйнований, спаунити бонус і видалити блок
+
                 if block.plate_type == "bonus" and not block.is_visible:
-                    bonus = block.spawn_bonus()  # spawn_bonus повертає об’єкт, похідний від AbstractBonusObject
+                    bonus = block.spawn_bonus()
                     if bonus:
                         self.active_bonuses.append(bonus)
-                    # Видаляємо бонус-блок із рівня, щоб він не заважав переходу на наступний рівень
+
                     self.level_manager.remove_block(block)
 
-            # Оновлення та рендер активних бонусів
             for bonus in self.active_bonuses[:]:
 
                 bonus.calculate_reflection(self.plate, self)
