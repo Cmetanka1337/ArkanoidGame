@@ -71,7 +71,7 @@ class LevelPlateObject(AbstractStaticObject):
                     radius=10,
                     is_active=False,
                     duration=10,  # бонус діятиме 10 секунд (для ExtendPlatformBonus)
-                    extend_size=400  # приклад параметра для розширення платформи
+                    extend_size=300  # приклад параметра для розширення платформи
                 )
             else:
                 bonus = bonus_class(

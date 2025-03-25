@@ -75,10 +75,8 @@ class Game:
                         selected_level = current_screen.selected_level
                         current_screen = GameScreen(manager, self.window_surface, clock,
                                                     selected_level=selected_level)
-
-
+                        current_screen = MenuScreen(manager, self.window_surface)
                     elif new_screen == "level_end":
-
                         current_screen = LevelEndScreen(self.window_surface, manager, selected_level)
 
                         result = current_screen.run()  # ОЧІКУЄМО ВИБОРУ КОРИСТУВАЧА
@@ -86,23 +84,54 @@ class Game:
                         print(f"Гравець вибрав: {result}")  # Додаємо перевірку результату
 
                         if result == "next":
-
                             selected_level += 1
-
                             current_screen = GameScreen(manager, self.window_surface, clock,
                                                         selected_level=selected_level)
-
 
                         elif result == "retry":
-
                             current_screen = GameScreen(manager, self.window_surface, clock,
-                                                        selected_level=selected_level)
+                                                        selected_level)
+
+                        elif result == "menu":
+                            current_screen = MenuScreen(manager, self.window_surface)
+
+
+                    elif new_screen == "game_over":
+
+                        print("Game Over — всі м'ячі зникли")  # Debug
+
+                        current_screen = GameOverScreen(self.window_surface, manager, selected_level)
+
+                        result = current_screen.run()
+
+                        if result == "retry":
+
+                            print("Гравець вирішив повторити рівень")  # Debug
+
+                            current_screen = GameScreen(manager, self.window_surface, clock, selected_level)
+                            current_screen.run()
 
 
                         elif result == "menu":
 
+                            print("Гравець повернувся в меню")  # Debug
+
                             current_screen = MenuScreen(manager, self.window_surface)
 
+                    elif new_screen == "life_recovery":
+                        # Викликаємо екран відновлення життя
+                        current_screen = LifeRecoveryScreen(self.window_surface, manager)
+
+                        result = current_screen.run()  # Очікуємо результат вибору користувача
+
+                        if result == "retry":
+                            # Перезапускаємо гру
+                            current_screen = GameScreen(manager, self.window_surface, clock,
+                                                        selected_level=selected_level)
+
+                        elif result == "menu":
+                            # Повертаємось в меню
+                            current_screen = MenuScreen(manager, self.window_surface)
 
                     elif new_screen == "settings":
                         current_screen = SettingsScreen(manager, self.window_surface)
