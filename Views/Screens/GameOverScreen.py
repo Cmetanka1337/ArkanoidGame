@@ -13,7 +13,7 @@ class GameOverScreen(AbstractScreen):
         self.layout_elements()
 
     def layout_elements(self):
-        label_rect = Rect((self.window_surface.get_width() // 2 - 100, 50), (300, 50))
+        label_rect = Rect((self.window_surface.get_width() // 2 - 70, 50), (300, 50))
         self.label = UILabel(relative_rect=label_rect, text="Game Over!", manager=self.manager)
         self.elements.append(self.label)
 
@@ -34,9 +34,9 @@ class GameOverScreen(AbstractScreen):
                     exit()
                 elif event.type == UI_BUTTON_PRESSED:
                     if event.ui_element == self.retry_button:
-                        self.result = "retry"  # Вибір для перезапуску
+                        return # нам треба просто повернутись з цього методу у випадку перезапуску. що ти повернеш не буде мати ніякого значення
                     elif event.ui_element == self.menu_button:
-                        self.result = "menu"  # Повернення в меню
+                        return "menu"  # Повернення в меню
 
                     print(f"Button pressed: {self.result}")  # Debugging: which button was pressed
 
