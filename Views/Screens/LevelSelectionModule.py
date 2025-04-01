@@ -1,7 +1,7 @@
 from pygame import Rect
 from pygame_gui import UI_BUTTON_PRESSED
 from pygame_gui.elements import UILabel, UIButton, UIDropDownMenu
-
+import pygame
 from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
 
 
@@ -10,6 +10,7 @@ class LevelSelection(AbstractScreen):
         super().__init__(manager, window_surface)
 
         self.window_width, self.window_height = window_surface.get_size()
+        self.selected_level=1
         self.layout_elements()
 
 
@@ -29,6 +30,7 @@ class LevelSelection(AbstractScreen):
         return None
 
     def layout_elements(self):
+        from Controllers import GameModule
         padding_x = 30
         padding_y = 20
         label_height = 50
@@ -39,7 +41,7 @@ class LevelSelection(AbstractScreen):
         title_rect = Rect((self.window_width // 2 - 100, 20), (200, 70))
         self.title_label = UILabel(
             relative_rect=title_rect,
-            text="Choose Level",
+            text=GameModule.selected_language.choose_level_str,
             manager=self.manager
         )
 
@@ -54,13 +56,14 @@ class LevelSelection(AbstractScreen):
         start_button_rect = Rect(level_menu_rect.x + padding_x, level_menu_rect.y + padding_y * 5, button_width, button_height)
         self.start_button = UIButton(
             relative_rect=start_button_rect,
-            text="Start",
+            text=GameModule.selected_language.start_str,
             manager=self.manager
         )
 
         back_button_rect = Rect(start_button_rect.x, start_button_rect.y + padding_y * 3, button_width, button_height)
         self.back_button = UIButton(
             relative_rect=back_button_rect,
-            text="Back",
+            text=GameModule.selected_language.back_str,
             manager=self.manager
         )
+

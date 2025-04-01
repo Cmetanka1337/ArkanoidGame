@@ -30,7 +30,7 @@ class BallObject(AbstractMovableObject):
         self.x_position += self.speed *self.move_direction[0]
         self.y_position += self.speed *self.move_direction[1]
 
-    def update_position(self):
+    def update_position(self,target: "GameScreen"):
         """
         Оновлює позицію м'яча згідно з поточним напрямком руху та швидкістю.
         """
