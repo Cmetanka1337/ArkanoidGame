@@ -9,6 +9,7 @@ from Models.LevelManager import LevelManager
 from Views.AdditionalBallsBonus import AdditionalBallsBonus
 from Views.Ball import BallObject
 from Views.ExtendPlatformBonus import ExtendPlatformBonus
+from Views.Screens.LifeRecoveryScreen import LifeRecoveryScreen
 from Views.Screens.PauseScreenModule import PauseScreen
 from Views.UserPlate import UserPlateObject
 from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
@@ -42,17 +43,18 @@ class GameScreen(AbstractScreen):
         if len(self.balls) == 0 and self.hp > 0:
             print("Рівень завершено! Показуємо LevelEndScreen.")  # Додай для перевірки
             self.show_game_over_screen()
+
     def show_game_over_screen(self):
         game_over_screen = GameOverScreen(self.window_surface, self.manager, self.selected_level)
         result = game_over_screen.run()
 
         if result == "menu":
-            self.is_running = False  # Завершуємо гру і переходимо в меню
-
-        elif result == "retry":
-            print("Гравець натиснув 'retry'. Перезапускаємо рівень...")  # Debugging
-            self.restart_level()  # Викликаємо перезапуск рівня
-            self.is_running = True  # Відновлюємо флаг роботи гри
+            self.is_running = False
+            return
+        else:
+            self.restart_level()
+            self.is_running = True
+        game_over_screen.destroy()
 
     # Перезапускаємо рівень
 
@@ -125,6 +127,14 @@ class GameScreen(AbstractScreen):
         )
         self.elements.append(self.hp_label)
 
+        game_over_rect = Rect(70, 20, 150, 40)
+        self.game_over = UIButton(
+            relative_rect=game_over_rect,
+            text="lose the game",
+            manager=self.manager
+        )
+        self.elements.append(self.game_over)
+
     def destroy(self):
         for element in self.elements:
             element.kill()
@@ -153,6 +163,10 @@ class GameScreen(AbstractScreen):
                         if pause_screen:
                             pause_screen.destroy()
                             pause_screen = None
+
+                if event.type == UI_BUTTON_PRESSED and event.ui_element == self.game_over:
+                    for ball in self.balls[:]:
+                        self.balls.remove(ball)
 
                 if paused and pause_screen:
                     result = pause_screen.process_events(event)
@@ -189,15 +203,14 @@ class GameScreen(AbstractScreen):
                                 self.show_game_over_screen()  # Показуємо Game Over Screen
 
                                 if self.is_running:  # Якщо гравець натиснув "retry", перезапускаємо рівень
-                                    print("Гравець натиснув 'retry'. Перезапускаємо рівень...")  # Debugging
                                     self.restart_level()  # Викликаємо перезапуск рівня
-                                    return  # Вихід із функції, щоб run_game() міг почати оновлення заново
+                                else:
+                                    self.destroy()
+                                    return
                             else:
                                 self.last_life_lost_time = time.time()  # Запам'ятовуємо час
                                 self.show_life_recovery_screen()  # Відображаємо таймер відновлення життя
                                 self.is_running = False  # Завершуємо гру
-
-
 
             else:
                 pause_screen.draw()
