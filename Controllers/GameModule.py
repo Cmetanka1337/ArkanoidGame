@@ -7,6 +7,7 @@ from Controllers.SettingsControllerModule import SettingsController
 from Models.LocalizedStringEnglish import LocalizedStringEnglish
 from Models.LocalizedStrings import LocalizedStrings
 from Views.Screens.LevelSelectionModule import LevelSelection
+from Views.Screens.LifeRecoveryScreen import LifeRecoveryScreen
 from Views.Screens.SettingsScreenModule import SettingsScreen
 from Views.Screens.GameScreenModule import GameScreen
 from Views.Screens.MainMenuScreenModule import MenuScreen
@@ -38,7 +39,6 @@ class Game:
         pass
 
     def launch_game(self, manager):
-
         clock = pygame.time.Clock()
         is_running = True
         current_screen = MenuScreen(manager, self.window_surface)
@@ -46,7 +46,6 @@ class Game:
 
         while is_running:
             time_delta = clock.tick(60) / 1000.0
-
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     is_running = False
@@ -75,14 +74,53 @@ class Game:
                             current_screen = GameScreen(manager, self.window_surface, clock,
                                                         selected_level=selected_level)
 
-                        elif result == "retry":
 
+                        elif result == "retry":
+                            current_screen = GameScreen(manager, self.window_surface, clock,
+                                                        selected_level)
+
+                        elif result == "menu":
+                            current_screen = MenuScreen(manager, self.window_surface)
+
+                    # по-моєму, код нижче взагалі нічого не робить
+                    # elif new_screen == "game_over":
+                    #
+                    #     print("Game Over — всі м'ячі зникли")  # Debug
+                    #
+                    #     current_screen = GameOverScreen(self.window_surface, manager, selected_level)
+                    #
+                    #     result = current_screen.run()
+                    #
+                    #     if result == "retry":
+                    #
+                    #         print("Гравець вирішив повторити рівень")  # Debug
+                    #
+                    #         current_screen = GameScreen(manager, self.window_surface, clock, selected_level)
+                    #         current_screen.run() # клас GameScreen не має методу run
+                    #
+                    #
+                    #     elif result == "menu":
+                    #
+                    #         print("Гравець повернувся в меню")  # Debug
+                    #
+                    #         current_screen = MenuScreen(manager, self.window_surface)
+
+                    elif new_screen == "life_recovery":
+                        # Викликаємо екран відновлення життя
+                        current_screen = LifeRecoveryScreen(self.window_surface, manager)
+
+                        result = current_screen.run()  # Очікуємо результат вибору користувача
+
+                        if result == "retry":
+                            # Перезапускаємо гру
                             current_screen = GameScreen(manager, self.window_surface, clock,
                                                         selected_level=selected_level)
 
 
                         elif result == "menu":
+
                             current_screen = MenuScreen(manager, self.window_surface)
+
 
                     elif new_screen == "settings":
                         settings_controller = SettingsController()
@@ -97,6 +135,7 @@ class Game:
                         selected_level = current_screen.selected_level
 
                 manager.process_events(event)
+
 
 
             manager.update(time_delta)
