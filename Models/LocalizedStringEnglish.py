@@ -21,9 +21,10 @@ class LocalizedStringEnglish(LocalizedStrings):
         self.level_completed_str = "Level completed"
         self.next_level_str = "Next level"
         self.restart_str = "Restart"
+        self.game_over_str = "Game over"
 
         super().__init__(self.localized_strings_name, self.game_name_str, self.start_game_str, self.settings_str, self.background_str, self.language_str, self.music_str, self.start_str, self.back_str,
-                         self.game_is_paused_str, self.return_str, self.back_to_menu_str, self.save_str, self.choose_level_str, self.next_level_str, self.level_completed_str, self.restart_str)
+                         self.game_is_paused_str, self.return_str, self.back_to_menu_str, self.save_str, self.choose_level_str, self.next_level_str, self.level_completed_str, self.restart_str, self.game_over_str)
 
     def return_new_instance(self):
         return self

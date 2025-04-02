@@ -19,6 +19,7 @@ class LocalizedStrings(ABC):
     next_level_str: str
     level_completed_str: str
     restart_str: str
+    game_over_str: str
 
     @abstractmethod
     def __init__(self,
@@ -38,7 +39,8 @@ class LocalizedStrings(ABC):
                  choose_level_str: str,
                  next_level_str: str,
                  level_completed_str: str,
-                 restart_str: str):
+                 restart_str: str,
+                 game_over_str: str):
 
         self.localized_strings_name = localized_strings_name
         self.game_name_str = game_name_str
@@ -57,6 +59,7 @@ class LocalizedStrings(ABC):
         self.next_level_str = next_level_str
         self.level_completed_str = level_completed_str
         self.restart_str = restart_str
+        self.game_over_str = game_over_str
 
     @abstractmethod
     def return_new_instance(self):

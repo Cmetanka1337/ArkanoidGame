@@ -15,7 +15,7 @@ class LevelEndScreen(AbstractScreen):
 
     def layout_elements(self):
         from Controllers import GameModule
-        label_rect = Rect((self.window_surface.get_width() // 2 - 100, 50), (300, 50))
+        label_rect = Rect((self.window_surface.get_width() // 2 - 100, 50), (250, 50))
         self.label = UILabel(
             relative_rect=label_rect,
             text=GameModule.selected_language.level_completed_str,

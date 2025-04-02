@@ -9,7 +9,7 @@ from Models.LevelManager import LevelManager
 from Views.AdditionalBallsBonus import AdditionalBallsBonus
 from Views.Ball import BallObject
 from Views.ExtendPlatformBonus import ExtendPlatformBonus
-from Views.Screens.LifeRecoveryScreen import LifeRecoveryScreen
+
 from Views.Screens.PauseScreenModule import PauseScreen
 from Views.UserPlate import UserPlateObject
 from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
@@ -23,7 +23,7 @@ class GameScreen(AbstractScreen):
     def __init__(self, manager, window_surface, clock, selected_level, hp=5):
         super().__init__(manager, window_surface)
         self.hp = hp  # Тепер ми ініціалізуємо hp
-        self.last_life_lost_time = None
+        #self.last_life_lost_time = None
         self.window_width = window_surface.get_width()
         self.window_height = window_surface.get_height()
         self.selected_level = selected_level
@@ -34,11 +34,11 @@ class GameScreen(AbstractScreen):
         self.initialize_game_elements()
         self.run_game(clock)
 
-    def update1(self, time_delta):
+    def checkIfNotBlocks(self, time_delta):
         if not self.level_manager.blocks:
             self.show_level_end_screen()
 
-    def update2(self, time_delta):
+    def checkIfNotBalls(self, time_delta):
         if len(self.balls) == 0 and self.hp > 0:
             print("Рівень завершено! Показуємо LevelEndScreen.")  # Додай для перевірки
             self.show_game_over_screen()
@@ -48,6 +48,7 @@ class GameScreen(AbstractScreen):
         result = game_over_screen.run()
 
         if result == "menu":
+            game_over_screen.destroy()
             self.is_running = False
             return
         else:
@@ -55,14 +56,6 @@ class GameScreen(AbstractScreen):
             self.is_running = True
         game_over_screen.destroy()
 
-    # Перезапускаємо рівень
-
-    def show_life_recovery_screen(self):
-        self.current_screen = LifeRecoveryScreen(self.window_surface, self.manager, self.reset_lives)
-
-    def reset_lives(self):
-        self.hp = 5  # Відновлюємо життя
-        self.restart_level()  # Перезапускаємо рівень
 
     def show_level_end_screen(self):
         level_end_screen = LevelEndScreen(self.window_surface, self.manager, self.selected_level)
@@ -126,13 +119,7 @@ class GameScreen(AbstractScreen):
         )
         self.elements.append(self.hp_label)
 
-        game_over_rect = Rect(70, 20, 150, 40)
-        self.game_over = UIButton(
-            relative_rect=game_over_rect,
-            text="lose the game",
-            manager=self.manager
-        )
-        self.elements.append(self.game_over)
+
 
     def destroy(self):
         for element in self.elements:
@@ -185,8 +172,8 @@ class GameScreen(AbstractScreen):
                     self.plate.move_to(self.plate.rect.x + self.plate.speed, self.plate.rect.y)
 
                 self.window_surface.blit(self.background, (0, 0))
-                self.update1(time_delta)
-                self.update2(time_delta)
+                self.checkIfNotBlocks(time_delta)
+                self.checkIfNotBalls(time_delta)
 
                 # Оновлення м’ячів
                 for ball in self.balls[:]:
@@ -207,8 +194,7 @@ class GameScreen(AbstractScreen):
                                     self.destroy()
                                     return
                             else:
-                                self.last_life_lost_time = time.time()  # Запам'ятовуємо час
-                                self.show_life_recovery_screen()  # Відображаємо таймер відновлення життя
+
                                 self.is_running = False  # Завершуємо гру
 
             else:

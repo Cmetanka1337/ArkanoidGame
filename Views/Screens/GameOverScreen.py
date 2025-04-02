@@ -13,16 +13,17 @@ class GameOverScreen(AbstractScreen):
         self.layout_elements()
 
     def layout_elements(self):
-        label_rect = Rect((self.window_surface.get_width() // 2 - 70, 50), (300, 50))
-        self.label = UILabel(relative_rect=label_rect, text="Game Over!", manager=self.manager)
+        from Controllers import GameModule
+        label_rect = Rect((self.window_surface.get_width() // 2 - 100, 50), (200, 50))
+        self.label = UILabel(relative_rect=label_rect, text=GameModule.selected_language.game_over_str, manager=self.manager)
         self.elements.append(self.label)
 
         retry_button_rect = Rect((self.window_surface.get_width() // 2 - 100, 120), (200, 50))
-        self.retry_button = UIButton(relative_rect=retry_button_rect, text="Try Again", manager=self.manager)
+        self.retry_button = UIButton(relative_rect=retry_button_rect, text=GameModule.selected_language.restart_str, manager=self.manager)
         self.elements.append(self.retry_button)
 
         menu_button_rect = Rect((self.window_surface.get_width() // 2 - 100, 190), (200, 50))
-        self.menu_button = UIButton(relative_rect=menu_button_rect, text="Go to Menu", manager=self.manager)
+        self.menu_button = UIButton(relative_rect=menu_button_rect, text=GameModule.selected_language.back_to_menu_str, manager=self.manager)
         self.elements.append(self.menu_button)
 
     def run(self):
