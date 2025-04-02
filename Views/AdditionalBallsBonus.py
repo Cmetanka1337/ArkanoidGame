@@ -18,7 +18,6 @@ class AdditionalBallsBonus(AbstractBonusObject):
         self.balls_number = balls_number
     #adds balls to screen and activates bonus
     def activate(self, target: "GameScreen"):
-        print("Активовано бонус, balls_number =", self.balls_number)
         base_x, base_y = 200, 100  # або позиція вже існуючого м'яча
         for i in range(int(self.balls_number)):
             new_x = base_x + i * 20  # зсув по горизонталі
