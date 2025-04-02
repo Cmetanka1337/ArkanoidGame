@@ -58,7 +58,6 @@ class LevelEndScreen(AbstractScreen):
                     elif event.ui_element == self.menu_button:
                         self.result = "menu"
 
-                    print(f"Кнопка натиснута: {self.result}")  # Додаємо перевірку, що саме спрацьовує
 
                 # Обробка подій UI менеджера
                 self.manager.process_events(event)
@@ -68,8 +67,6 @@ class LevelEndScreen(AbstractScreen):
             self.manager.draw_ui(self.window_surface)
             pygame.display.flip()
 
-        print(
-            f"LevelEndScreen завершився з результатом: {self.result}")  # Переконуємося, що повертається правильне значення
         self.destroy()
         return self.result
 
@@ -83,7 +80,6 @@ class LevelEndScreen(AbstractScreen):
             elif event.ui_element == self.menu_button:
                 self.result = "menu"
 
-            print(f"Натиснута кнопка: {self.result}")  # Логування натискання кнопки
 
         # Залишаємо обробку подій UI менеджера
         self.manager.process_events(event)
@@ -93,4 +89,3 @@ class LevelEndScreen(AbstractScreen):
             # Логіка очищення екрану, наприклад, видалення елементів інтерфейсу
             for element in self.elements:
                 element.kill()  # Якщо у вас є елементи UI, видалити їх.
-            print("LevelEndScreen очищено.")

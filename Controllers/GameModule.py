@@ -35,9 +35,6 @@ class Game:
         self.manager = UIManager(self.window_surface.get_size(), f"../Assets/{selected_theme}")
         self.launch_game(self.manager)
 
-    def draw_scene(self) -> SceneObject:
-        pass
-
     def launch_game(self, manager):
         clock = pygame.time.Clock()
         is_running = True

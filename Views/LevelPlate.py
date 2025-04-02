@@ -40,14 +40,12 @@ class LevelPlateObject(AbstractStaticObject):
             else:
                 self.is_visible = False
                 self.destroy_platform()
-                print("Platform destroyed")
 
         if self.plate_type == 'bonus':
             bonus = self.spawn_bonus()
             # Переконайся, що self.active_bonuses існує та оновлюється
             if bonus:
                 self.active_bonuses.append(bonus)  # Додаємо бонус у список
-                print(f"Bonus {bonus} spawned and added to active bonuses")  # Дебаг
             self.is_visible = False
 
     def spawn_bonus(self) -> BonusObject:

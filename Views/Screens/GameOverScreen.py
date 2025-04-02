@@ -39,7 +39,6 @@ class GameOverScreen(AbstractScreen):
                     elif event.ui_element == self.menu_button:
                         return "menu"  # Повернення в меню
 
-                    print(f"Button pressed: {self.result}")  # Debugging: which button was pressed
 
                 self.manager.process_events(event)
 
@@ -47,7 +46,6 @@ class GameOverScreen(AbstractScreen):
             self.manager.draw_ui(self.window_surface)
             pygame.display.flip()
 
-        print(f"GameOverScreen ended with result: {self.result}")  # Debugging result
         self.destroy()
         return self.result
 
@@ -58,7 +56,6 @@ class GameOverScreen(AbstractScreen):
             elif event.ui_element == self.menu_button:
                 self.result = "menu"  # Повернення в меню
 
-            print(f"Button pressed: {self.result}")  # Log the button press
 
         self.manager.process_events(event)
         return None
@@ -67,5 +64,3 @@ class GameOverScreen(AbstractScreen):
         for element in self.elements:
             element.kill()
         self.result = None
-        print("GameOverScreen cleaned up.")  # Debugging cleanup
-

@@ -40,7 +40,6 @@ class GameScreen(AbstractScreen):
 
     def checkIfNotBalls(self, time_delta):
         if len(self.balls) == 0 and self.hp > 0:
-            print("Рівень завершено! Показуємо LevelEndScreen.")  # Додай для перевірки
             self.show_game_over_screen()
 
     def show_game_over_screen(self):
@@ -77,25 +76,21 @@ class GameScreen(AbstractScreen):
             self.is_running = False  # Завершення гри після останнього рівня
 
     def restart_level(self):
-        print("Перезапуск рівня...")  # Debugging
         self.destroy()  # Очищаємо поточний рівень
         self.level_manager.load_level(self.selected_level)  # Завантажуємо рівень заново
         self.initialize_game_elements()  # Ініціалізуємо елементи гри
         self.layout_elements()  # Додаємо UI елементи
         self.is_running = True  # Встановлюємо прапорець для продовження гри
-        print(f"М'ячі після перезапуску: {len(self.balls)}")  # Debugging
 
     def initialize_game_elements(self):
         self.plate = UserPlateObject(400, 500, 200, 50, pygame.Color(127, 127, 127), 20)
         self.balls = [BallObject(200, 100, 10, 10, pygame.Color(255, 0, 0), 5, [1, 1], 5, True)]
         self.active_bonuses = []
-        print(f"Ініціалізовані елементи: Платформа на {self.plate.rect.x}, М'ячі: {len(self.balls)}")  # Debugging
 
     def process_events(self, event):
         if event.type == UI_BUTTON_PRESSED and event.ui_element == self.pause_button:
             return "menu"
         if len(self.balls) == 0 and self.hp > 0:  # Якщо м’ячі зникли, але життя ще є
-            print("Усі м'ячі зникли, але життя залишились → показуємо GameOverScreen")  # Debug
             return "game_over"
 
 
@@ -150,9 +145,9 @@ class GameScreen(AbstractScreen):
                             pause_screen.destroy()
                             pause_screen = None
 
-                if event.type == UI_BUTTON_PRESSED and event.ui_element == self.game_over:
-                    for ball in self.balls[:]:
-                        self.balls.remove(ball)
+                # if event.type == UI_BUTTON_PRESSED and event.ui_element == self.game_over:
+                #     for ball in self.balls[:]:
+                #         self.balls.remove(ball)
 
                 if paused and pause_screen:
                     result = pause_screen.process_events(event)
