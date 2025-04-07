@@ -40,8 +40,6 @@ class BallObject(AbstractMovableObject):
         if self.y_position - self.radius > SceneObject.height:
             self.is_visible = False
 
-
-
     # метод, який обчислює траекторії руху після зіткнення з будь - яким обʼєктом.
 
     def calculate_reflection(self,user_plate,level_manager):

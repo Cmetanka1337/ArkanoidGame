@@ -43,20 +43,20 @@ class LevelPlateObject(AbstractStaticObject):
 
         if self.plate_type == 'bonus':
             bonus = self.spawn_bonus()
-            # Переконайся, що self.active_bonuses існує та оновлюється
+
             if bonus:
                 self.active_bonuses.append(bonus)  # Додаємо бонус у список
             self.is_visible = False
 
     def spawn_bonus(self) -> BonusObject:
         if self.plate_type == 'bonus':
-            # Можна, наприклад, випадково вибирати бонус між ExtendPlatformBonus і AdditionalBallsBonus
+            #випадково вибираємо бонус між ExtendPlatformBonus і AdditionalBallsBonus
             import random
             from Views.ExtendPlatformBonus import ExtendPlatformBonus
             from Views.AdditionalBallsBonus import AdditionalBallsBonus
             bonus_classes = [ExtendPlatformBonus, AdditionalBallsBonus]
             bonus_class = random.choice(bonus_classes)
-            # Створимо бонус у центрі блоку, задаючи параметри (вони можуть бути налаштовані)
+            # Створимо бонус у центрі блоку, задаючи параметри
             if bonus_class == ExtendPlatformBonus:
                 bonus = bonus_class(
                     x_position=self.rect.centerx,
