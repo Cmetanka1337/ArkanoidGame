@@ -55,7 +55,6 @@ class GameScreen(AbstractScreen):
             self.is_running = True
         game_over_screen.destroy()
 
-
     def show_level_end_screen(self):
         level_end_screen = LevelEndScreen(self.window_surface, self.manager, self.selected_level)
         result = level_end_screen.run()
