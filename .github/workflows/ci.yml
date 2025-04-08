@@ -23,14 +23,14 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pytest pygame==2.5.2 pygame_gui==0.6.9  # Фіксуємо сумісні версії
+          pip install pytest pygame==2.5.2 pygame_gui==0.6.9 pytest-mock
 
       - name: Run tests
         run: |
           pytest Tests/test_AbstractBonusObject.py -v
           pytest Tests/test_AdditionalBallsBonus.py -v
           pytest Tests/test_Ball.py -v
-          pytest Tests/test_ExtendPlatformBonus.py
+          pytest Tests/test_ExtendPlatformBonus.py -v
           pytest Tests/test_LevelManager.py -v
           pytest Tests/test_LevelPlate.py -v
           pytest Tests/test_SettingsViewController.py -v
