@@ -4,6 +4,7 @@ import pygame
 from pygame import Surface
 from pygame_gui import UIManager
 from pygame_gui.core.interfaces import IUIManagerInterface
+from Controllers.SceneModule import SceneObject
 from Controllers.SettingsControllerModule import SettingsController
 from Models.LocalizedStringEnglish import LocalizedStringEnglish
 from Models.LocalizedStrings import LocalizedStrings

@@ -1,8 +1,6 @@
 import pygame
 from Views.Abstract_classes.AbstractMovableObject import AbstractMovableObject
 from Views.Scene import SceneObject
-
-
 class BallObject(AbstractMovableObject):
 
     speed: float
@@ -13,8 +11,7 @@ class BallObject(AbstractMovableObject):
     def __init__(self, x_position: float, y_position: float,
                  height: float, width: float,
                  color: pygame.Color,
-                 speed: float, move_direction: list,
-                 radius: float, is_visible: bool):
+                 speed: float, move_direction: list, radius: float, is_visible: bool):
         super().__init__(x_position, y_position, height, width, color, True)
         self.speed = speed
         self.move_direction = move_direction
@@ -47,16 +44,12 @@ class BallObject(AbstractMovableObject):
 
         if self.y_position - self.radius > SceneObject.height:
             self.is_visible = False
+    # метод, який обчислює траекторії руху після зіткнення з будь - яким обʼєктом.
 
-    def calculate_reflection(self, user_plate, level_manager):
-        """
-        Обчислює траєкторію м'яча після зіткнення з об'єктами.
-        """
-
-        # Відбиття м'яча від країв екрану
-        if (self.x_position < self.radius or
-                self.x_position > SceneObject.width - self.radius):
-            self.move_direction[0] *= -1
+    def calculate_reflection(self,user_plate,level_manager):
+        #логіка відбиття м'яча від країв екрану
+        if self.x_position < self.radius or self.x_position > SceneObject.width - self.radius:
+            self.move_direction[0] *=-1
 
         if self.y_position < self.radius:
             self.move_direction[1] *= -1
