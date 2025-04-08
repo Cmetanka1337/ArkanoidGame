@@ -22,8 +22,7 @@ class GameScreen(AbstractScreen):
 
     def __init__(self, manager, window_surface, clock, selected_level, hp=5):
         super().__init__(manager, window_surface)
-        self.hp = hp  # Тепер ми ініціалізуємо hp
-        #self.last_life_lost_time = None
+        self.hp = hp
         self.window_width = window_surface.get_width()
         self.window_height = window_surface.get_height()
         self.selected_level = selected_level
@@ -226,4 +225,3 @@ class GameScreen(AbstractScreen):
             self.manager.draw_ui(self.window_surface)
 
             pygame.display.flip()
-
