@@ -1,3 +1,5 @@
+import os
+
 import pygame
 from pygame import Surface
 from pygame_gui import UIManager
@@ -25,13 +27,16 @@ class Game:
 
         pygame.display.set_caption("Arkanoid Game")
 
-        pygame.mixer.music.load("../Assets/sounds/background_music.mp3")
+        base_path = os.path.dirname(__file__)
+        music_path = os.path.join(base_path, "../Assets/sounds/background_music.mp3")
+        theme_path = os.path.join(base_path, "../Assets/Themes", selected_theme)
+        pygame.mixer.music.load(music_path)
         pygame.mixer.music.play(-1)
         pygame.mixer.music.set_volume(0.15)
 
         self.window_surface = pygame.display.set_mode((800, 600))
 
-        self.manager = UIManager(self.window_surface.get_size(), f"../Assets/{selected_theme}")
+        self.manager = UIManager(self.window_surface.get_size(), theme_path)
         self.launch_game(self.manager)
 
     def launch_game(self, manager):

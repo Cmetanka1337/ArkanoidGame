@@ -4,10 +4,9 @@ from Views.Scene import SceneObject
 
 
 class BallObject(AbstractMovableObject):
-#
 
     speed: float
-    move_direction: list #я змінив тип на список ,тому що кортеж незмінний тип
+    move_direction: list
     radius: float
     is_visible: bool
 

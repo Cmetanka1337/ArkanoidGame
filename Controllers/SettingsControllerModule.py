@@ -1,6 +1,4 @@
 import pygame
-from pygame_gui import UIManager
-
 from Models.LocalizedStringEnglish import LocalizedStringEnglish
 from Models.LocalizedStrings import LocalizedStrings
 
