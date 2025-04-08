@@ -224,4 +224,3 @@ class GameScreen(AbstractScreen):
             self.manager.draw_ui(self.window_surface)
 
             pygame.display.flip()
-
