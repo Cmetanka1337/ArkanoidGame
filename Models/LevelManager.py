@@ -1,10 +1,6 @@
 import pygame
 import random
-import math
-from Models.Bonus import BonusObject
-from Views.Abstract_classes.AbstractStaticObject import AbstractStaticObject
 from Views.LevelPlate import LevelPlateObject
-
 
 
 class LevelManager:
@@ -20,7 +16,8 @@ class LevelManager:
         if level == 2:
             self.generate_rhombus()
 
-    def add_vertical_lines(self, center_x, center_y, rows, block_width, block_height, side_blocks):
+    def add_vertical_lines(self, center_x, center_y, rows, block_width,
+                           block_height, side_blocks):
         """ Додає вертикальні лінії з боків конструкції """
         colors = [(255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0)]
 
@@ -90,7 +87,8 @@ class LevelManager:
                 self.blocks.append(block)
 
         # Додаємо вертикальні лінії через загальний метод
-        self.add_vertical_lines(center_x, center_y, rows, block_width, block_height, side_blocks=10)
+        self.add_vertical_lines(center_x, center_y, rows,
+                                block_width, block_height, side_blocks=10)
 
     def generate_letter_A(self):
         block_width = 50
@@ -141,7 +139,8 @@ class LevelManager:
             self.blocks.append(block)
 
         # Додаємо вертикальні лінії через загальний метод
-        self.add_vertical_lines(center_x, center_y, rows, block_width, block_height, side_blocks=6)
+        self.add_vertical_lines(center_x, center_y, rows,
+                                block_width, block_height, side_blocks=6)
 
         # Верхня горизонтальна лінія
         for col in range(-4, 5):  # 9 блоків зверху
@@ -169,5 +168,4 @@ class LevelManager:
 
     def render(self, screen):
         for block in self.blocks:
-          block.render(screen)
-
+            block.render(screen)
