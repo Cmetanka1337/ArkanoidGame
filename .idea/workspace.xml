@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c290049-b9a1-4c42-84c9-cbbf1f5a2d93" name="Changes" comment="Implemented tests for ExtendPlatformBonus">
-      <change afterPath="$PROJECT_DIR$/pytest.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="8c290049-b9a1-4c42-84c9-cbbf1f5a2d93" name="Changes" comment="Wrote custom markers" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -182,7 +179,7 @@
       <workItem from="1743583716545" duration="4319000" />
       <workItem from="1744048348433" duration="3270000" />
       <workItem from="1744052063759" duration="2002000" />
-      <workItem from="1744128034202" duration="8423000" />
+      <workItem from="1744128034202" duration="9077000" />
     </task>
     <task id="LOCAL-00001" summary="Changed annotations">
       <option name="closed" value="true" />
@@ -232,7 +229,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744136554571</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Wrote custom markers">
+      <option name="closed" value="true" />
+      <created>1744136626391</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1744136626391</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,7 +260,8 @@
     <MESSAGE value="Implemented tests for AbstractBonusObject" />
     <MESSAGE value="Implemented tests for AdditionalBallsBonusObject" />
     <MESSAGE value="Implemented tests for ExtendPlatformBonus" />
-    <option name="LAST_COMMIT_MESSAGE" value="Implemented tests for ExtendPlatformBonus" />
+    <MESSAGE value="Wrote custom markers" />
+    <option name="LAST_COMMIT_MESSAGE" value="Wrote custom markers" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ArkanoidGame$GameScreenModule.coverage" NAME="GameScreenModule Coverage Results" MODIFIED="1742316139996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Views/Screens" />
