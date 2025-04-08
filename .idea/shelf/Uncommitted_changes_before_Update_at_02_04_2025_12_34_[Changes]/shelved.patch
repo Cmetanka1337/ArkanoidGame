@@ -1,0 +1,92 @@
+Index: Views/LevelPlate.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pygame\r\nfrom Models.Bonus import BonusObject\r\nfrom Views.Abstract_classes.AbstractBonusObject import AbstractBonusObject\r\nfrom Views.Abstract_classes.AbstractStaticObject import AbstractStaticObject\r\n\r\nclass LevelPlateObject(AbstractStaticObject):\r\n    alpha_values = {3: 255, 2: 170, 1: 85}\r\n    hit_points: int\r\n    plate_type: str # standard plate or with a bonus, for example\r\n    alpha:int\r\n    def __init__(self,hit_points: int, plate_type: str, is_breakable: bool, x_position: float, y_position: float, height: float, width: float,\r\n                 color: pygame.Color, is_visible=True, level_manager=None):\r\n        super().__init__(is_breakable, x_position, y_position, height, width, color, is_visible)\r\n        self.hit_points = hit_points\r\n        self.plate_type = plate_type\r\n        self.alpha = 255\r\n        self.rect = pygame.Rect(x_position, y_position, width, height)\r\n        self.color.a = self.alpha\r\n        self.level_manager= level_manager\r\n        self.active_bonuses = []\r\n    def render(self, screen):\r\n        \"\"\" Малює платформу, якщо вона видима \"\"\"\r\n        if self.is_visible:\r\n            surface = pygame.Surface((self.rect.width, self.rect.height), pygame.SRCALPHA)\r\n            surface.fill((self.color.r, self.color.g, self.color.b, self.alpha))\r\n            screen.blit(surface, self.rect.topleft)\r\n\r\n    def destroy_platform(self):\r\n        \"\"\" Знищує платформу з гри \"\"\"\r\n        if self.level_manager:  # Переконайтесь, що level_manager існує\r\n            self.level_manager.remove_block(self)\r\n\r\n    def decrease_hit_points(self):\r\n        \"\"\" Зменшує міцність платформи, робить її невидимою при руйнуванні \"\"\"\r\n        if self.is_breakable:\r\n            self.hit_points -= 1\r\n            if self.hit_points > 0:\r\n                self.alpha = self.alpha_values.get(self.hit_points,50)\r\n                self.color.a = self.alpha\r\n            else:\r\n                self.is_visible = False\r\n                self.destroy_platform()\r\n                print(\"Platform destroyed\")\r\n\r\n        if self.plate_type == 'bonus':\r\n            bonus = self.spawn_bonus()\r\n            # Переконайся, що self.active_bonuses існує та оновлюється\r\n            if bonus:\r\n                self.active_bonuses.append(bonus)  # Додаємо бонус у список\r\n                print(f\"Bonus {bonus} spawned and added to active bonuses\")  # Дебаг\r\n            self.is_visible = False\r\n\r\n    def spawn_bonus(self) -> BonusObject:\r\n        if self.plate_type == 'bonus':\r\n            # Можна, наприклад, випадково вибирати бонус між ExtendPlatformBonus і AdditionalBallsBonus\r\n            import random\r\n            from Views.ExtendPlatformBonus import ExtendPlatformBonus\r\n            from Views.AdditionalBallsBonus import AdditionalBallsBonus\r\n            bonus_classes = [ExtendPlatformBonus, AdditionalBallsBonus]\r\n            bonus_class = random.choice(bonus_classes)\r\n            # Створимо бонус у центрі блоку, задаючи параметри (вони можуть бути налаштовані)\r\n            if bonus_class == ExtendPlatformBonus:\r\n                bonus = bonus_class(\r\n                    x_position=self.rect.centerx,\r\n                    y_position=self.rect.centery,\r\n                    height=20,\r\n                    width=20,\r\n                    color=self.color,\r\n                    speed=5,\r\n                    move_direction=[0, 1],  # бонус падає вниз\r\n                    radius=10,\r\n                    is_active=False,\r\n                    duration=10,  # бонус діятиме 10 секунд (для ExtendPlatformBonus)\r\n                    extend_size=300  # приклад параметра для розширення платформи\r\n                )\r\n            else:\r\n                bonus = bonus_class(\r\n                    x_position=self.rect.centerx,\r\n                    y_position=self.rect.centery,\r\n                    height=20,\r\n                    width=20,\r\n                    color=self.color,\r\n                    speed=5,\r\n                    move_direction=[0, 1],  # бонус падає вниз\r\n                    radius=10,\r\n                    is_active=False,\r\n                    balls_number = 2\r\n                )\r\n\r\n            return bonus\r\n\r\n    def update_state(self):\r\n        \"\"\" Плавне зникнення після руйнування\"\"\"\r\n        if not self.is_visible and self.alpha > 0:\r\n            self.alpha = max(self.alpha-10,0)\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Views/LevelPlate.py b/Views/LevelPlate.py
+--- a/Views/LevelPlate.py	(revision 914cb360aeca0c3aba0fcd7bcd3ca75c914955d6)
++++ b/Views/LevelPlate.py	(date 1743586257141)
+@@ -44,7 +44,7 @@
+ 
+         if self.plate_type == 'bonus':
+             bonus = self.spawn_bonus()
+-            # Переконайся, що self.active_bonuses існує та оновлюється
++
+             if bonus:
+                 self.active_bonuses.append(bonus)  # Додаємо бонус у список
+                 print(f"Bonus {bonus} spawned and added to active bonuses")  # Дебаг
+@@ -52,13 +52,13 @@
+ 
+     def spawn_bonus(self) -> BonusObject:
+         if self.plate_type == 'bonus':
+-            # Можна, наприклад, випадково вибирати бонус між ExtendPlatformBonus і AdditionalBallsBonus
++            #випадково вибираємо бонус між ExtendPlatformBonus і AdditionalBallsBonus
+             import random
+             from Views.ExtendPlatformBonus import ExtendPlatformBonus
+             from Views.AdditionalBallsBonus import AdditionalBallsBonus
+             bonus_classes = [ExtendPlatformBonus, AdditionalBallsBonus]
+             bonus_class = random.choice(bonus_classes)
+-            # Створимо бонус у центрі блоку, задаючи параметри (вони можуть бути налаштовані)
++            # Створимо бонус у центрі блоку, задаючи параметри
+             if bonus_class == ExtendPlatformBonus:
+                 bonus = bonus_class(
+                     x_position=self.rect.centerx,
+Index: Views/Ball.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pygame\r\nfrom Views.Abstract_classes.AbstractMovableObject import AbstractMovableObject\r\nfrom Views.Scene import SceneObject\r\nclass BallObject(AbstractMovableObject):\r\n\r\n    speed: float\r\n    move_direction: list #я змінив тип на список ,тому що кортеж незмінний тип\r\n    radius: float\r\n    is_visible: bool\r\n\r\n    def __init__(self, x_position: float, y_position: float,\r\n                 height: float, width: float,\r\n                 color: pygame.Color,\r\n                 speed: float, move_direction: list, radius: float, is_visible: bool):\r\n        super().__init__(x_position, y_position, height, width, color, True)\r\n        self.speed = speed\r\n        self.move_direction = move_direction\r\n        self.radius = radius\r\n        self.is_visible = is_visible\r\n\r\n\r\n    def render(self,screen):\r\n        if self.is_visible:\r\n            pygame.draw.circle(screen, self.color, (int(self.x_position), int(self.y_position)), int(self.radius))\r\n\r\n    def move_to(self, x: float, y: float):\r\n        #встановлюємо напрямок руху а потім рухаємо в тому напрямку мяч змінюючи координати х та у\r\n        self.move_direction[0] = x\r\n        self.move_direction[1] = y\r\n        self.x_position += self.speed *self.move_direction[0]\r\n        self.y_position += self.speed *self.move_direction[1]\r\n\r\n    def update_position(self,target: \"GameScreen\"):\r\n        \"\"\"\r\n        Оновлює позицію м'яча згідно з поточним напрямком руху та швидкістю.\r\n        \"\"\"\r\n        self.x_position += self.speed * self.move_direction[0]\r\n        self.y_position += self.speed * self.move_direction[1]\r\n\r\n        if self.y_position - self.radius > SceneObject.height:\r\n            self.is_visible = False\r\n\r\n\r\n\r\n    # метод, який обчислює траекторії руху після зіткнення з будь - яким обʼєктом.\r\n\r\n    def calculate_reflection(self,user_plate,level_manager):\r\n        #логіка відбиття м'яча від країв екрану\r\n        if self.x_position < self.radius or self.x_position > SceneObject.width - self.radius:\r\n            self.move_direction[0] *=-1\r\n\r\n        if self.y_position < self.radius:\r\n            self.move_direction[1] *=-1\r\n        # Логіка обробки зіткнення з платформою\r\n        # Перевіряємо, чи мяч рухається вниз\r\n        if self.move_direction[1] > 0:\r\n            # Перевірка, чи досяг мяч верхньої межі платформи\r\n            if self.y_position + self.radius >= user_plate.rect.y:\r\n                # Перевірка, чи знаходиться мяч по осі X в межах платформи\r\n                if user_plate.rect.x <= self.x_position <= user_plate.rect.x + user_plate.rect.width:\r\n                    # Відбиваємо мяч від платформи (змінюємо вертикальну складову руху)\r\n                    self.move_direction[1] *= -1\r\n        # Відбивання від платформ рівня\r\n        for plate in level_manager.blocks:\r\n            if plate.is_visible:\r\n                # Отримуємо координати платформи\r\n                plate_left = plate.rect.x\r\n                plate_right = plate.rect.x + plate.rect.width\r\n                plate_top = plate.rect.y\r\n                plate_bottom = plate.rect.y + plate.rect.height\r\n\r\n                # Перевіряємо зіткнення м'яча з платформою\r\n                if (plate_left - self.radius <= self.x_position <= plate_right + self.radius and\r\n                        plate_top - self.radius <= self.y_position <= plate_bottom + self.radius):\r\n\r\n                    # Визначаємо, звідки м'яч вдарив у платформу\r\n                    overlap_x = min(abs(self.x_position - plate_left), abs(self.x_position - plate_right))\r\n                    overlap_y = min(abs(self.y_position - plate_top), abs(self.y_position - plate_bottom))\r\n\r\n                    if overlap_x > overlap_y:  # Вертикальне зіткнення\r\n                        self.move_direction[1] *= -1\r\n                    else:  # Горизонтальне зіткнення\r\n                        self.move_direction[0] *= -1\r\n\r\n                    # Якщо платформа ламка, зменшуємо її міцність\r\n                    if plate.is_breakable:\r\n                        plate.decrease_hit_points()\r\n                        plate.update_state()\r\n\r\n    #мяч стає посередині екрану по х та знизу по у\r\n    def reset_position(self):\r\n        self.x_position = SceneObject.width // 2\r\n        self.y_position = SceneObject.height - 50
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Views/Ball.py b/Views/Ball.py
+--- a/Views/Ball.py	(revision 914cb360aeca0c3aba0fcd7bcd3ca75c914955d6)
++++ b/Views/Ball.py	(date 1743583736505)
+@@ -40,8 +40,6 @@
+         if self.y_position - self.radius > SceneObject.height:
+             self.is_visible = False
+ 
+-
+-
+     # метод, який обчислює траекторії руху після зіткнення з будь - яким обʼєктом.
+ 
+     def calculate_reflection(self,user_plate,level_manager):
+Index: .idea/Arknoid_Game.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/.venv\" />\r\n    </content>\r\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.12 (ArkanoidGame)\" jdkType=\"Python SDK\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Arknoid_Game.iml b/.idea/Arknoid_Game.iml
+--- a/.idea/Arknoid_Game.iml	(revision 914cb360aeca0c3aba0fcd7bcd3ca75c914955d6)
++++ b/.idea/Arknoid_Game.iml	(date 1743584071138)
+@@ -4,7 +4,7 @@
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+     </content>
+-    <orderEntry type="jdk" jdkName="Python 3.12 (ArkanoidGame)" jdkType="Python SDK" />
++    <orderEntry type="jdk" jdkName="Python 3.12 (Arkanoid)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"Black\">\r\n    <option name=\"sdkName\" value=\"Python 3.12 (ArkanoidGame)\" />\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.12 (ArkanoidGame)\" project-jdk-type=\"Python SDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 914cb360aeca0c3aba0fcd7bcd3ca75c914955d6)
++++ b/.idea/misc.xml	(date 1743584071147)
+@@ -3,5 +3,5 @@
+   <component name="Black">
+     <option name="sdkName" value="Python 3.12 (ArkanoidGame)" />
+   </component>
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (ArkanoidGame)" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (Arkanoid)" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file

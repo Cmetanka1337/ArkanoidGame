@@ -6,14 +6,14 @@ from pygame_gui import UI_BUTTON_PRESSED
 from pygame_gui.elements import UILabel, UIButton
 
 from Models.LevelManager import LevelManager
-from Views.AdditionalBallsBonus import AdditionalBallsBonus
+# from Views.AdditionalBallsBonus import AdditionalBallsBonus
 from Views.Ball import BallObject
-from Views.ExtendPlatformBonus import ExtendPlatformBonus
+# from Views.ExtendPlatformBonus import ExtendPlatformBonus
 
 from Views.Screens.PauseScreenModule import PauseScreen
 from Views.UserPlate import UserPlateObject
 from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
-from Views.Abstract_classes.AbstractBonusObject import AbstractBonusObject
+# from Views.Abstract_classes.AbstractBonusObject import AbstractBonusObject
 from Views.Screens.GameOverScreen import GameOverScreen
 from Views.Screens.LevelEndScreen import LevelEndScreen
 
@@ -22,8 +22,7 @@ class GameScreen(AbstractScreen):
 
     def __init__(self, manager, window_surface, clock, selected_level, hp=5):
         super().__init__(manager, window_surface)
-        self.hp = hp  # Тепер ми ініціалізуємо hp
-        #self.last_life_lost_time = None
+        self.hp = hp
         self.window_width = window_surface.get_width()
         self.window_height = window_surface.get_height()
         self.selected_level = selected_level
@@ -54,6 +53,7 @@ class GameScreen(AbstractScreen):
             self.restart_level()
             self.is_running = True
         game_over_screen.destroy()
+
 
     def show_level_end_screen(self):
         level_end_screen = LevelEndScreen(self.window_surface, self.manager, self.selected_level)
@@ -225,4 +225,3 @@ class GameScreen(AbstractScreen):
             self.manager.draw_ui(self.window_surface)
 
             pygame.display.flip()
-

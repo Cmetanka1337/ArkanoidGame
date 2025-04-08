@@ -1,0 +1,84 @@
+Index: Views/Screens/GameScreenModule.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pygame\r\n#from main import level_manager\r\nfrom pygame import Rect\r\nfrom pygame_gui import UI_BUTTON_PRESSED\r\nfrom pygame_gui.elements import UILabel, UIButton\r\n\r\nfrom Models.LevelManager import LevelManager\r\nfrom Views.AdditionalBallsBonus import AdditionalBallsBonus\r\nfrom Views.Ball import BallObject\r\nfrom Views.ExtendPlatformBonus import ExtendPlatformBonus\r\nfrom Views.Screens.PauseScreenModule import PauseScreen\r\nfrom Views.UserPlate import UserPlateObject\r\nfrom Views.Abstract_classes.AbstractScreenModule import AbstractScreen\r\nfrom Views.Abstract_classes.AbstractBonusObject import AbstractBonusObject\r\n\r\nfrom Views.Screens.LevelEndScreen import LevelEndScreen\r\n\r\nclass GameScreen(AbstractScreen):\r\n\r\n    def __init__(self, manager, window_surface, clock, selected_level):\r\n        super().__init__(manager, window_surface)\r\n        self.hp = None\r\n        self.window_width = window_surface.get_width()\r\n        self.window_height = window_surface.get_height()\r\n        self.selected_level = selected_level\r\n        self.elements = []\r\n        self.is_running = True\r\n        self.level_manager = LevelManager(self.window_width, self.window_height)\r\n        self.level_manager.load_level(self.selected_level)\r\n        self.initialize_game_elements()\r\n        self.run_game(clock)\r\n\r\n    def update1(self, time_delta):\r\n        if not self.level_manager.blocks:\r\n            print(\"Рівень завершено! Показуємо LevelEndScreen.\")  # Додай для перевірки\r\n            self.show_level_end_screen()\r\n\r\n    def show_level_end_screen(self):\r\n        level_end_screen = LevelEndScreen(self.window_surface, self.manager, self.selected_level)\r\n        result = level_end_screen.run()\r\n\r\n        if result == \"next\":\r\n            self.next_level()\r\n        elif result == \"retry\":\r\n            self.restart_level()\r\n        elif result == \"menu\":\r\n            self.is_running = False  # Вихід в меню\r\n\r\n    def next_level(self):\r\n        if self.selected_level < 2:\r\n            self.selected_level += 1\r\n            self.level_manager.load_level(self.selected_level)\r\n            self.initialize_game_elements()\r\n        else:\r\n            self.is_running = False  # Завершення гри після останнього рівня\r\n\r\n    def restart_level(self):\r\n        self.level_manager.load_level(self.selected_level)\r\n        self.initialize_game_elements()\r\n    def initialize_game_elements(self):\r\n        self.plate = UserPlateObject(400, 500, 200, 50, pygame.Color(127, 127, 127), 20)\r\n        self.balls = [BallObject(200, 100, 10, 10, pygame.Color(255, 0, 0), 5, [1, 1], 5, True)]\r\n        self.active_bonuses = []\r\n\r\n    def process_events(self, event):\r\n        if event.type == UI_BUTTON_PRESSED and event.ui_element == self.pause_button:\r\n            return \"menu\"\r\n        return None\r\n\r\n    def layout_elements(self):\r\n        pause_button_rect = Rect(20, 20, 40, 40)\r\n        self.pause_button = UIButton(\r\n            relative_rect=pause_button_rect,\r\n            text=\"||\",\r\n            manager=self.manager\r\n        )\r\n        self.elements.append(self.pause_button)\r\n\r\n        self.hp = 4\r\n        hp_rect = Rect((self.window_width // 2 - 100, 20), (200, 70))\r\n        self.hp_label = UILabel(\r\n            relative_rect=hp_rect,\r\n            text=f\"HP: {self.hp}\",\r\n            manager=self.manager\r\n        )\r\n        self.elements.append(self.hp_label)\r\n\r\n    def destroy(self):\r\n        for element in self.elements:\r\n            element.kill()\r\n        self.elements.clear()\r\n\r\n    def run_game(self, clock):\r\n        self.layout_elements()\r\n        paused = False\r\n        pause_screen = None\r\n\r\n        while self.is_running:\r\n            time_delta = clock.tick(60) / 1000.0\r\n\r\n            for event in pygame.event.get():\r\n                if event.type == pygame.QUIT:\r\n                    exit()\r\n\r\n                self.manager.process_events(event)\r\n\r\n                if event.type == UI_BUTTON_PRESSED and event.ui_element == self.pause_button:\r\n                    paused = not paused\r\n                    if paused:\r\n                        pause_screen = PauseScreen(self.window_surface, self.manager)\r\n                    else:\r\n                        if pause_screen:\r\n                            pause_screen.destroy()\r\n                            pause_screen = None\r\n\r\n                if paused and pause_screen:\r\n                    result = pause_screen.process_events(event)\r\n                    if result == \"game\":\r\n                        paused = False\r\n                        pause_screen.destroy()\r\n                        pause_screen = None\r\n                    elif result == \"menu\":\r\n                        self.destroy()\r\n                        self.is_running = False\r\n\r\n            if not paused:\r\n                keys = pygame.key.get_pressed()\r\n                if keys[pygame.K_LEFT]:\r\n                    self.plate.move_to(self.plate.rect.x - self.plate.speed, self.plate.rect.y)\r\n                if keys[pygame.K_RIGHT]:\r\n                    self.plate.move_to(self.plate.rect.x + self.plate.speed, self.plate.rect.y)\r\n\r\n                self.window_surface.blit(self.background, (0, 0))\r\n                self.update1(time_delta)\r\n                # Оновлення м’ячів\r\n                for ball in self.balls[:]:\r\n                    ball.update_position(self)\r\n                    ball.calculate_reflection(self.plate, self.level_manager)\r\n                    if ball.y_position - ball.radius > self.window_height:\r\n                        self.hp -= 1\r\n                        self.hp_label.set_text(\"HP: \" + str(self.hp))\r\n                        self.balls.remove(ball)\r\n            else:\r\n                pause_screen.draw()\r\n\r\n            # Рендер м’ячів\r\n            for ball in self.balls:\r\n                ball.render(self.window_surface)\r\n\r\n            print(len(self.level_manager.blocks))\r\n\r\n            # Рендер блоків рівня\r\n            for block in self.level_manager.blocks[:]:\r\n                block.render(self.window_surface)\r\n                # Якщо блок бонусовий і був зруйнований, спаунити бонус і видалити блок\r\n                if block.plate_type == \"bonus\" and not block.is_visible:\r\n                    bonus = block.spawn_bonus()  # spawn_bonus повертає об’єкт, похідний від AbstractBonusObject\r\n                    if bonus:\r\n                        self.active_bonuses.append(bonus)\r\n                    # Видаляємо бонус-блок із рівня, щоб він не заважав переходу на наступний рівень\r\n                    self.level_manager.remove_block(block)\r\n\r\n            # Оновлення та рендер активних бонусів\r\n            for bonus in self.active_bonuses[:]:\r\n\r\n                bonus.calculate_reflection(self.plate, self)\r\n                bonus.update_position()\r\n                bonus.render(self.window_surface)\r\n                if not bonus.is_visible:\r\n                    self.active_bonuses.remove(bonus)\r\n\r\n            self.plate.render(self.window_surface)\r\n\r\n            self.manager.update(time_delta)\r\n            self.manager.draw_ui(self.window_surface)\r\n\r\n            pygame.display.flip()
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Views/Screens/GameScreenModule.py b/Views/Screens/GameScreenModule.py
+--- a/Views/Screens/GameScreenModule.py	(revision 221c29259903a0e90a86390a5d66754a5ecab106)
++++ b/Views/Screens/GameScreenModule.py	(date 1742316139978)
+@@ -32,7 +32,6 @@
+ 
+     def update1(self, time_delta):
+         if not self.level_manager.blocks:
+-            print("Рівень завершено! Показуємо LevelEndScreen.")  # Додай для перевірки
+             self.show_level_end_screen()
+ 
+     def show_level_end_screen(self):
+@@ -147,8 +146,6 @@
+             for ball in self.balls:
+                 ball.render(self.window_surface)
+ 
+-            print(len(self.level_manager.blocks))
+-
+             # Рендер блоків рівня
+             for block in self.level_manager.blocks[:]:
+                 block.render(self.window_surface)
+Index: Views/Ball.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import pygame\r\nfrom Views.Abstract_classes.AbstractMovableObject import AbstractMovableObject\r\nfrom Views.Scene import SceneObject\r\nclass BallObject(AbstractMovableObject):\r\n\r\n    speed: float\r\n    move_direction: list #я змінив тип на список ,тому що кортеж незмінний тип\r\n    radius: float\r\n    is_visible: bool\r\n\r\n    def __init__(self, x_position: float, y_position: float,\r\n                 height: float, width: float,\r\n                 color: pygame.Color,\r\n                 speed: float, move_direction: list, radius: float, is_visible: bool):\r\n        super().__init__(x_position, y_position, height, width, color, True)\r\n        self.speed = speed\r\n        self.move_direction = move_direction\r\n        self.radius = radius\r\n        self.is_visible = is_visible\r\n\r\n\r\n    def render(self,screen):\r\n        if self.is_visible:\r\n            pygame.draw.circle(screen, self.color, (int(self.x_position), int(self.y_position)), int(self.radius))\r\n\r\n    def move_to(self, x: float, y: float):\r\n        #встановлюємо напрямок руху а потім рухаємо в тому напрямку мяч змінюючи координати х та у\r\n        self.move_direction[0] = x\r\n        self.move_direction[1] = y\r\n        self.x_position += self.speed *self.move_direction[0]\r\n        self.y_position += self.speed *self.move_direction[1]\r\n\r\n    def update_position(self,target: \"GameScreen\"):\r\n        \"\"\"\r\n        Оновлює позицію м'яча згідно з поточним напрямком руху та швидкістю.\r\n        \"\"\"\r\n        self.x_position += self.speed * self.move_direction[0]\r\n        self.y_position += self.speed * self.move_direction[1]\r\n\r\n        if self.y_position - self.radius > SceneObject.height:\r\n            self.is_visible = False\r\n\r\n\r\n\r\n    # метод, який обчислює траекторії руху після зіткнення з будь - яким обʼєктом.\r\n\r\n    def calculate_reflection(self,user_plate,level_manager):\r\n        #логіка відбиття м'яча від країв екрану\r\n        if self.x_position < self.radius or self.x_position > SceneObject.width - self.radius:\r\n            self.move_direction[0] *=-1\r\n\r\n        if self.y_position < self.radius:\r\n            self.move_direction[1] *=-1\r\n        # Логіка обробки зіткнення з платформою\r\n        # Перевіряємо, чи мяч рухається вниз\r\n        if self.move_direction[1] > 0:\r\n            # Перевірка, чи досяг мяч верхньої межі платформи\r\n            if self.y_position + self.radius >= user_plate.rect.y:\r\n                # Перевірка, чи знаходиться мяч по осі X в межах платформи\r\n                if user_plate.rect.x <= self.x_position <= user_plate.rect.x + user_plate.rect.width:\r\n                    # Відбиваємо мяч від платформи (змінюємо вертикальну складову руху)\r\n                    self.move_direction[1] *= -1\r\n        # Відбивання від платформ рівня\r\n        for plate in level_manager.blocks:\r\n            if plate.is_visible:\r\n                # Отримуємо координати платформи\r\n                plate_left = plate.rect.x\r\n                plate_right = plate.rect.x + plate.rect.width\r\n                plate_top = plate.rect.y\r\n                plate_bottom = plate.rect.y + plate.rect.height\r\n\r\n                # Перевіряємо зіткнення м'яча з платформою\r\n                if (plate_left - self.radius <= self.x_position <= plate_right + self.radius and\r\n                        plate_top - self.radius <= self.y_position <= plate_bottom + self.radius):\r\n\r\n                    # Визначаємо, звідки м'яч вдарив у платформу\r\n                    overlap_x = min(abs(self.x_position - plate_left), abs(self.x_position - plate_right))\r\n                    overlap_y = min(abs(self.y_position - plate_top), abs(self.y_position - plate_bottom))\r\n\r\n                    if overlap_x > overlap_y:  # Вертикальне зіткнення\r\n                        self.move_direction[1] *= -1\r\n                    else:  # Горизонтальне зіткнення\r\n                        self.move_direction[0] *= -1\r\n\r\n                    # Якщо платформа ламка, зменшуємо її міцність\r\n                    if plate.is_breakable:\r\n                        plate.decrease_hit_points()\r\n                        plate.update_state()\r\n\r\n    #мяч стає посередині екрану по х та знизу по у\r\n    def reset_position(self):\r\n        self.x_position = SceneObject.width // 2\r\n        self.y_position = SceneObject.height - 50
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Views/Ball.py b/Views/Ball.py
+--- a/Views/Ball.py	(revision 221c29259903a0e90a86390a5d66754a5ecab106)
++++ b/Views/Ball.py	(date 1742318684510)
+@@ -40,8 +40,6 @@
+         if self.y_position - self.radius > SceneObject.height:
+             self.is_visible = False
+ 
+-
+-
+     # метод, який обчислює траекторії руху після зіткнення з будь - яким обʼєктом.
+ 
+     def calculate_reflection(self,user_plate,level_manager):
+Index: .idea/Arknoid_Game.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<module type=\"PYTHON_MODULE\" version=\"4\">\r\n  <component name=\"NewModuleRootManager\">\r\n    <content url=\"file://$MODULE_DIR$\">\r\n      <excludeFolder url=\"file://$MODULE_DIR$/.venv\" />\r\n    </content>\r\n    <orderEntry type=\"jdk\" jdkName=\"Python 3.12 (ArkanoidGame)\" jdkType=\"Python SDK\" />\r\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\r\n  </component>\r\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Arknoid_Game.iml b/.idea/Arknoid_Game.iml
+--- a/.idea/Arknoid_Game.iml	(revision 221c29259903a0e90a86390a5d66754a5ecab106)
++++ b/.idea/Arknoid_Game.iml	(date 1742315565029)
+@@ -4,7 +4,7 @@
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+     </content>
+-    <orderEntry type="jdk" jdkName="Python 3.12 (ArkanoidGame)" jdkType="Python SDK" />
++    <orderEntry type="jdk" jdkName="Python 3.11" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+ </module>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"Black\">\r\n    <option name=\"sdkName\" value=\"Python 3.12 (ArkanoidGame)\" />\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.12 (ArkanoidGame)\" project-jdk-type=\"Python SDK\" />\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 221c29259903a0e90a86390a5d66754a5ecab106)
++++ b/.idea/misc.xml	(date 1742315565036)
+@@ -3,5 +3,5 @@
+   <component name="Black">
+     <option name="sdkName" value="Python 3.12 (ArkanoidGame)" />
+   </component>
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 (ArkanoidGame)" project-jdk-type="Python SDK" />
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
