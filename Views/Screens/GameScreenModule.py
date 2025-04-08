@@ -6,14 +6,14 @@ from pygame_gui import UI_BUTTON_PRESSED
 from pygame_gui.elements import UILabel, UIButton
 
 from Models.LevelManager import LevelManager
-from Views.AdditionalBallsBonus import AdditionalBallsBonus
+# from Views.AdditionalBallsBonus import AdditionalBallsBonus
 from Views.Ball import BallObject
-from Views.ExtendPlatformBonus import ExtendPlatformBonus
+# from Views.ExtendPlatformBonus import ExtendPlatformBonus
 
 from Views.Screens.PauseScreenModule import PauseScreen
 from Views.UserPlate import UserPlateObject
 from Views.Abstract_classes.AbstractScreenModule import AbstractScreen
-from Views.Abstract_classes.AbstractBonusObject import AbstractBonusObject
+# from Views.Abstract_classes.AbstractBonusObject import AbstractBonusObject
 from Views.Screens.GameOverScreen import GameOverScreen
 from Views.Screens.LevelEndScreen import LevelEndScreen
 

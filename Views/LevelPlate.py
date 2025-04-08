@@ -1,6 +1,6 @@
 import pygame
 from Models.Bonus import BonusObject
-from Views.Abstract_classes.AbstractBonusObject import AbstractBonusObject
+# from Views.Abstract_classes.AbstractBonusObject import AbstractBonusObject
 from Views.Abstract_classes.AbstractStaticObject import AbstractStaticObject
 
 class LevelPlateObject(AbstractStaticObject):
