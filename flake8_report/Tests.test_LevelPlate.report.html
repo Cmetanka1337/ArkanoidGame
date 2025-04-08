@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>flake8 violations: Tests/test_LevelPlate.py</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+<script>
+function bindHandler(link) {
+   var code = link.getAttribute('data-code');
+   var key = location.pathname + '#' + code;
+
+   var ul = link.parentNode.querySelector('.details');
+   if (sessionStorage[key] != 'open') {
+      ul.style.display = 'none';
+   }
+   link.addEventListener('click', function (event) {
+      if (!ul.style.display || ul.style.display == 'none') {
+         ul.style.display = 'block';
+         sessionStorage[key] = 'open';
+      } else {
+         ul.style.display = 'none';
+         sessionStorage[key] = 'closed';
+      }
+   });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+   var links = document.querySelectorAll('#index > li > a');
+   for (var i = 0; i < links.length; i++) {
+      bindHandler(links[i]);
+   }
+});
+</script>
+   </head>
+   <body>
+      <div id="masthead" class="sev-1"></div>
+      <div id="page">
+         <p id="srclink">
+            <a title="View full annotated source"
+               href="Tests.test_LevelPlate.source.html">
+               <img src="file.svg" alt="&#x2261;">
+            </a></p>
+         <h1>
+            <a href="index.html">
+               <img src="back.svg" alt="&#x2B05;">
+               Tests/test_LevelPlate.py
+            </a>
+         </h1>
+
+         <ul id="index">
+         
+         <li>
+            <a data-code="F841">
+               <span class="count sev-1">
+                  2
+               </span>
+               <strong>F841:</strong> local variable 'mock_additional' is assigned to but never used
+               
+                  (and 1 similar)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <p>Local variable 'mock_additional' is assigned to but never used:</p>
+               
+               <a href="Tests.test_LevelPlate.source.html#l62">
+                  <tt><i>62</i>     <span class="n">mock_additional</span> <span class="o">=</span> <span class="n">mocker</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">&quot;Views.AdditionalBallsBonus.AdditionalBallsBonus&quot;</span><span class="p">,</span> <span class="n">autospec</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Local variable 'mock_extend' is assigned to but never used:</p>
+               
+               <a href="Tests.test_LevelPlate.source.html#l78">
+                  <tt><i>78</i>     <span class="n">mock_extend</span> <span class="o">=</span> <span class="n">mocker</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">&quot;Views.ExtendPlatformBonus.ExtendPlatformBonus&quot;</span><span class="p">,</span> <span class="n">autospec</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="F821">
+               <span class="count sev-1">
+                  1
+               </span>
+               <strong>F821:</strong> undefined name 'plate'
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="Tests.test_LevelPlate.source.html#l46">
+                  <tt><i>46</i>     <span class="k">assert</span> <span class="n">level_plate</span><span class="o">.</span><span class="n">alpha</span> <span class="o">==</span> <span class="n">expected_alpha</span> <span class="ow">or</span> <span class="n">plate</span><span class="o">.</span><span class="n">alpha</span> <span class="o">==</span> <span class="mi">255</span>  <span class="c1"># 255 for the bonus case</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E501">
+               <span class="count sev-2">
+                  7
+               </span>
+               <strong>E501:</strong> line too long (104 > 79 characters)
+               
+                  (and 3 similar)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <p>Line too long (104 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelPlate.source.html#l41">
+                  <tt><i>41</i> <span class="k">def</span><span class="w"> </span><span class="nf">test_decrease_hit_points_behavior</span><span class="p">(</span><span class="n">mocker</span><span class="p">,</span> <span class="n">hit_points</span><span class="p">,</span> <span class="n">expected_visible</span><span class="p">,</span> <span class="n">expected_alpha</span><span class="p">,</span><span class="n">level_plate</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (94 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelPlate.source.html#l46">
+                  <tt><i>46</i>     <span class="k">assert</span> <span class="n">level_plate</span><span class="o">.</span><span class="n">alpha</span> <span class="o">==</span> <span class="n">expected_alpha</span> <span class="ow">or</span> <span class="n">plate</span><span class="o">.</span><span class="n">alpha</span> <span class="o">==</span> <span class="mi">255</span>  <span class="c1"># 255 for the bonus case</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (90 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelPlate.source.html#l52">
+                  <tt><i>52</i>     <span class="n">mocker</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">&quot;Views.LevelPlate.LevelPlateObject.spawn_bonus&quot;</span><span class="p">,</span> <span class="n">return_value</span><span class="o">=</span><span class="n">bonus_mock</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (94 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelPlate.source.html#l61">
+                  <tt><i>61</i>     <span class="n">mock_extend</span> <span class="o">=</span> <span class="n">mocker</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">&quot;Views.ExtendPlatformBonus.ExtendPlatformBonus&quot;</span><span class="p">,</span> <span class="n">autospec</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (100 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelPlate.source.html#l62">
+                  <tt><i>62</i>     <span class="n">mock_additional</span> <span class="o">=</span> <span class="n">mocker</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">&quot;Views.AdditionalBallsBonus.AdditionalBallsBonus&quot;</span><span class="p">,</span> <span class="n">autospec</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (94 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelPlate.source.html#l78">
+                  <tt><i>78</i>     <span class="n">mock_extend</span> <span class="o">=</span> <span class="n">mocker</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">&quot;Views.ExtendPlatformBonus.ExtendPlatformBonus&quot;</span><span class="p">,</span> <span class="n">autospec</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (100 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelPlate.source.html#l79">
+                  <tt><i>79</i>     <span class="n">mock_additional</span> <span class="o">=</span> <span class="n">mocker</span><span class="o">.</span><span class="n">patch</span><span class="p">(</span><span class="s2">&quot;Views.AdditionalBallsBonus.AdditionalBallsBonus&quot;</span><span class="p">,</span> <span class="n">autospec</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E302">
+               <span class="count sev-2">
+                  6
+               </span>
+               <strong>E302:</strong> expected 2 blank lines, found 1
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="Tests.test_LevelPlate.source.html#l9">
+                  <tt><i>9</i> <span class="nd">@pytest</span><span class="o">.</span><span class="n">fixture</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="Tests.test_LevelPlate.source.html#l26">
+                  <tt><i>26</i> <span class="k">def</span><span class="w"> </span><span class="nf">test_render</span><span class="p">(</span><span class="n">mocker</span><span class="p">,</span> <span class="n">level_plate</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="Tests.test_LevelPlate.source.html#l32">
+                  <tt><i>32</i> <span class="k">def</span><span class="w"> </span><span class="nf">test_destroy_platform_calls_level_manager</span><span class="p">(</span><span class="n">level_plate</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="Tests.test_LevelPlate.source.html#l36">
+                  <tt><i>36</i> <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;hit_points, expected_visible, expected_alpha&quot;</span><span class="p">,</span> <span class="p">[</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="Tests.test_LevelPlate.source.html#l48">
+                  <tt><i>48</i> <span class="k">def</span><span class="w"> </span><span class="nf">test_decrease_hit_points_bonus_addition</span><span class="p">(</span><span class="n">mocker</span><span class="p">,</span><span class="n">level_plate</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="Tests.test_LevelPlate.source.html#l57">
+                  <tt><i>57</i> <span class="k">def</span><span class="w"> </span><span class="nf">test_spawn_bonus_returns_extend_platform</span><span class="p">(</span><span class="n">mocker</span><span class="p">,</span> <span class="n">level_plate</span><span class="p">):</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E231">
+               <span class="count sev-2">
+                  2
+               </span>
+               <strong>E231:</strong> missing whitespace after ','
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="Tests.test_LevelPlate.source.html#l41">
+                  <tt><i>41</i> <span class="k">def</span><span class="w"> </span><span class="nf">test_decrease_hit_points_behavior</span><span class="p">(</span><span class="n">mocker</span><span class="p">,</span> <span class="n">hit_points</span><span class="p">,</span> <span class="n">expected_visible</span><span class="p">,</span> <span class="n">expected_alpha</span><span class="p">,</span><span class="n">level_plate</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="Tests.test_LevelPlate.source.html#l48">
+                  <tt><i>48</i> <span class="k">def</span><span class="w"> </span><span class="nf">test_decrease_hit_points_bonus_addition</span><span class="p">(</span><span class="n">mocker</span><span class="p">,</span><span class="n">level_plate</span><span class="p">):</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E303">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>E303:</strong> too many blank lines (4)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="Tests.test_LevelPlate.source.html#l93">
+                  <tt><i>93</i> <span class="k">def</span><span class="w"> </span><span class="nf">test_update_state_fades_out</span><span class="p">(</span><span class="n">level_plate</span><span class="p">):</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E402">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>E402:</strong> module level import not at top of file
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="Tests.test_LevelPlate.source.html#l7">
+                  <tt><i>7</i> <span class="kn">from</span><span class="w"> </span><span class="nn">Views.LevelPlate</span><span class="w"> </span><span class="kn">import</span> <span class="n">LevelPlateObject</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="W292">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>W292:</strong> no newline at end of file
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="Tests.test_LevelPlate.source.html#l101">
+                  <tt><i>101</i>     <span class="k">assert</span> <span class="n">level_plate</span><span class="o">.</span><span class="n">alpha</span> <span class="o">==</span> <span class="mi">0</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         </ul>
+      </div>
+   </body>
+</html>

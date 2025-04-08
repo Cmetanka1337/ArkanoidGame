@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>flake8 violations: Tests/test_LevelManager.py</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+<script>
+function bindHandler(link) {
+   var code = link.getAttribute('data-code');
+   var key = location.pathname + '#' + code;
+
+   var ul = link.parentNode.querySelector('.details');
+   if (sessionStorage[key] != 'open') {
+      ul.style.display = 'none';
+   }
+   link.addEventListener('click', function (event) {
+      if (!ul.style.display || ul.style.display == 'none') {
+         ul.style.display = 'block';
+         sessionStorage[key] = 'open';
+      } else {
+         ul.style.display = 'none';
+         sessionStorage[key] = 'closed';
+      }
+   });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+   var links = document.querySelectorAll('#index > li > a');
+   for (var i = 0; i < links.length; i++) {
+      bindHandler(links[i]);
+   }
+});
+</script>
+   </head>
+   <body>
+      <div id="masthead" class="sev-2"></div>
+      <div id="page">
+         <p id="srclink">
+            <a title="View full annotated source"
+               href="Tests.test_LevelManager.source.html">
+               <img src="file.svg" alt="&#x2261;">
+            </a></p>
+         <h1>
+            <a href="index.html">
+               <img src="back.svg" alt="&#x2B05;">
+               Tests/test_LevelManager.py
+            </a>
+         </h1>
+
+         <ul id="index">
+         
+         <li>
+            <a data-code="E501">
+               <span class="count sev-2">
+                  7
+               </span>
+               <strong>E501:</strong> line too long (84 > 79 characters)
+               
+                  (and 4 similar)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <p>Line too long (84 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelManager.source.html#l25">
+                  <tt><i>25</i>     <span class="n">mock_generate_letter_A</span> <span class="o">=</span> <span class="n">mocker</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">object</span><span class="p">(</span><span class="n">level_manager</span><span class="p">,</span> <span class="s1">&#39;generate_letter_A&#39;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (82 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelManager.source.html#l33">
+                  <tt><i>33</i>     <span class="n">mock_generate_rhombus</span> <span class="o">=</span> <span class="n">mocker</span><span class="o">.</span><span class="n">patch</span><span class="o">.</span><span class="n">object</span><span class="p">(</span><span class="n">level_manager</span><span class="p">,</span> <span class="s1">&#39;generate_rhombus&#39;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (102 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelManager.source.html#l51">
+                  <tt><i>51</i>     <span class="n">level_manager</span><span class="o">.</span><span class="n">add_vertical_lines</span><span class="p">(</span><span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="n">block_width</span><span class="p">,</span> <span class="n">block_height</span><span class="p">,</span> <span class="n">side_blocks</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (83 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelManager.source.html#l59">
+                  <tt><i>59</i>     <span class="c1"># Мокуємо метод add_vertical_lines, щоб зосередитись на логіці generate_rhombus</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (96 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelManager.source.html#l68">
+                  <tt><i>68</i>     <span class="c1"># У ромбі має бути як мінімум кілька блоків (точну кількість важко підрахувати через логіку)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (84 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelManager.source.html#l73">
+                  <tt><i>73</i>     <span class="c1"># Мокуємо метод add_vertical_lines, щоб зосередитись на логіці generate_letter_A</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (82 > 79 characters):</p>
+               
+               <a href="Tests.test_LevelManager.source.html#l144">
+                  <tt><i>144</i>     <span class="c1"># Перевіряємо, що render кожного блоку був викликаний із правильним аргументом</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E402">
+               <span class="count sev-2">
+                  2
+               </span>
+               <strong>E402:</strong> module level import not at top of file
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="Tests.test_LevelManager.source.html#l7">
+                  <tt><i>7</i> <span class="kn">from</span><span class="w"> </span><span class="nn">Views.LevelPlate</span><span class="w"> </span><span class="kn">import</span> <span class="n">LevelPlateObject</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="Tests.test_LevelManager.source.html#l8">
+                  <tt><i>8</i> <span class="kn">from</span><span class="w"> </span><span class="nn">Models.LevelManager</span><span class="w"> </span><span class="kn">import</span> <span class="n">LevelManager</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="W292">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>W292:</strong> no newline at end of file
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="Tests.test_LevelManager.source.html#l146">
+                  <tt><i>146</i>     <span class="n">test_block2</span><span class="o">.</span><span class="n">render</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="n">mock_screen</span><span class="p">)</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         </ul>
+      </div>
+   </body>
+</html>

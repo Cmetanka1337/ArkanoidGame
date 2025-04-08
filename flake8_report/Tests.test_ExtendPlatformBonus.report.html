@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>flake8 violations: Tests/test_ExtendPlatformBonus.py</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+<script>
+function bindHandler(link) {
+   var code = link.getAttribute('data-code');
+   var key = location.pathname + '#' + code;
+
+   var ul = link.parentNode.querySelector('.details');
+   if (sessionStorage[key] != 'open') {
+      ul.style.display = 'none';
+   }
+   link.addEventListener('click', function (event) {
+      if (!ul.style.display || ul.style.display == 'none') {
+         ul.style.display = 'block';
+         sessionStorage[key] = 'open';
+      } else {
+         ul.style.display = 'none';
+         sessionStorage[key] = 'closed';
+      }
+   });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+   var links = document.querySelectorAll('#index > li > a');
+   for (var i = 0; i < links.length; i++) {
+      bindHandler(links[i]);
+   }
+});
+</script>
+   </head>
+   <body>
+      <div id="masthead" class="sev-2"></div>
+      <div id="page">
+         <p id="srclink">
+            <a title="View full annotated source"
+               href="Tests.test_ExtendPlatformBonus.source.html">
+               <img src="file.svg" alt="&#x2261;">
+            </a></p>
+         <h1>
+            <a href="index.html">
+               <img src="back.svg" alt="&#x2B05;">
+               Tests/test_ExtendPlatformBonus.py
+            </a>
+         </h1>
+
+         <ul id="index">
+         
+         <li>
+            <a data-code="E501">
+               <span class="count sev-2">
+                  22
+               </span>
+               <strong>E501:</strong> line too long (86 > 79 characters)
+               
+                  (and 11 similar)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <p>Line too long (86 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l15">
+                  <tt><i>15</i> <span class="sd">    Базова фікстура, яка створює екземпляр бонусу розширення платформи для тестування.</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (86 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l96">
+                  <tt><i>96</i>             <span class="n">mock_user_plate</span><span class="o">.</span><span class="n">resize</span><span class="o">.</span><span class="n">assert_called_once_with</span><span class="p">(</span><span class="n">platform_bonus</span><span class="o">.</span><span class="n">extend_size</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (90 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l120">
+                  <tt><i>120</i>     <span class="k">def</span><span class="w"> </span><span class="nf">test_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">platform_bonus</span><span class="p">,</span> <span class="n">mock_user_plate</span><span class="p">,</span> <span class="n">current_time</span><span class="p">,</span> <span class="n">expected_active</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (81 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l149">
+                  <tt><i>149</i>                 <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">platform_bonus</span><span class="o">.</span><span class="n">x_position</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">platform_bonus</span><span class="o">.</span><span class="n">y_position</span><span class="p">)),</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (91 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l154">
+                  <tt><i>154</i>     <span class="k">def</span><span class="w"> </span><span class="nf">test_calculate_reflection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">platform_bonus</span><span class="p">,</span> <span class="n">mock_user_plate</span><span class="p">,</span> <span class="n">mock_game_screen</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (82 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l166">
+                  <tt><i>166</i>             <span class="n">platform_bonus</span><span class="o">.</span><span class="n">calculate_reflection</span><span class="p">(</span><span class="n">mock_user_plate</span><span class="p">,</span> <span class="n">mock_game_screen</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (80 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l176">
+                  <tt><i>176</i>     <span class="nd">@pytest</span><span class="o">.</span><span class="n">mark</span><span class="o">.</span><span class="n">parametrize</span><span class="p">(</span><span class="s2">&quot;bonus_x, plate_x, plate_width, expected_active&quot;</span><span class="p">,</span> <span class="p">[</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (101 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l181">
+                  <tt><i>181</i>     <span class="k">def</span><span class="w"> </span><span class="nf">test_calculate_reflection_x_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">platform_bonus</span><span class="p">,</span> <span class="n">mock_user_plate</span><span class="p">,</span> <span class="n">mock_game_screen</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (93 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l182">
+                  <tt><i>182</i>                                              <span class="n">bonus_x</span><span class="p">,</span> <span class="n">plate_x</span><span class="p">,</span> <span class="n">plate_width</span><span class="p">,</span> <span class="n">expected_active</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (88 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l183">
+                  <tt><i>183</i> <span class="w">        </span><span class="sd">&quot;&quot;&quot;Параметризований тест методу calculate_reflection для різних позицій по X.&quot;&quot;&quot;</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (82 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l191">
+                  <tt><i>191</i>             <span class="n">platform_bonus</span><span class="o">.</span><span class="n">calculate_reflection</span><span class="p">(</span><span class="n">mock_user_plate</span><span class="p">,</span> <span class="n">mock_game_screen</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (101 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l201">
+                  <tt><i>201</i>     <span class="k">def</span><span class="w"> </span><span class="nf">test_calculate_reflection_y_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">platform_bonus</span><span class="p">,</span> <span class="n">mock_user_plate</span><span class="p">,</span> <span class="n">mock_game_screen</span><span class="p">,</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (80 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l202">
+                  <tt><i>202</i>                                              <span class="n">bonus_y</span><span class="p">,</span> <span class="n">plate_y</span><span class="p">,</span> <span class="n">expected_active</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (88 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l203">
+                  <tt><i>203</i> <span class="w">        </span><span class="sd">&quot;&quot;&quot;Параметризований тест методу calculate_reflection для різних позицій по Y.&quot;&quot;&quot;</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (82 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l210">
+                  <tt><i>210</i>             <span class="n">platform_bonus</span><span class="o">.</span><span class="n">calculate_reflection</span><span class="p">(</span><span class="n">mock_user_plate</span><span class="p">,</span> <span class="n">mock_game_screen</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (105 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l216">
+                  <tt><i>216</i>     <span class="k">def</span><span class="w"> </span><span class="nf">test_bonus_not_activated_when_invisible</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">platform_bonus</span><span class="p">,</span> <span class="n">mock_user_plate</span><span class="p">,</span> <span class="n">mock_game_screen</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (82 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l223">
+                  <tt><i>223</i>             <span class="n">platform_bonus</span><span class="o">.</span><span class="n">calculate_reflection</span><span class="p">(</span><span class="n">mock_user_plate</span><span class="p">,</span> <span class="n">mock_game_screen</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (105 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l230">
+                  <tt><i>230</i>     <span class="k">def</span><span class="w"> </span><span class="nf">test_bonus_not_activated_when_moving_up</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">platform_bonus</span><span class="p">,</span> <span class="n">mock_user_plate</span><span class="p">,</span> <span class="n">mock_game_screen</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (82 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l237">
+                  <tt><i>237</i>             <span class="n">platform_bonus</span><span class="o">.</span><span class="n">calculate_reflection</span><span class="p">(</span><span class="n">mock_user_plate</span><span class="p">,</span> <span class="n">mock_game_screen</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (92 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l253">
+                  <tt><i>253</i>         <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;pygame.time.get_ticks&#39;</span><span class="p">,</span> <span class="n">return_value</span><span class="o">=</span><span class="mi">2500</span><span class="p">):</span>  <span class="c1"># 1000 + 1500 (1.5 секунди)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (102 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l259">
+                  <tt><i>259</i>         <span class="k">with</span> <span class="n">patch</span><span class="p">(</span><span class="s1">&#39;pygame.time.get_ticks&#39;</span><span class="p">,</span> <span class="n">return_value</span><span class="o">=</span><span class="mi">4001</span><span class="p">):</span>  <span class="c1"># 1000 + 3001 (трохи більше 3 секунд)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (81 > 79 characters):</p>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l267">
+                  <tt><i>267</i>     <span class="k">def</span><span class="w"> </span><span class="nf">test_bonus_lifecycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">platform_bonus</span><span class="p">,</span> <span class="n">mock_user_plate</span><span class="p">,</span> <span class="n">time_values</span><span class="p">):</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E402">
+               <span class="count sev-2">
+                  6
+               </span>
+               <strong>E402:</strong> module level import not at top of file
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l4">
+                  <tt><i>4</i> <span class="kn">import</span><span class="w"> </span><span class="nn">pytest</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l5">
+                  <tt><i>5</i> <span class="kn">import</span><span class="w"> </span><span class="nn">pygame</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l6">
+                  <tt><i>6</i> <span class="kn">from</span><span class="w"> </span><span class="nn">unittest.mock</span><span class="w"> </span><span class="kn">import</span> <span class="n">MagicMock</span><span class="p">,</span> <span class="n">patch</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l7">
+                  <tt><i>7</i> <span class="kn">from</span><span class="w"> </span><span class="nn">Views.Abstract_classes.AbstractBonusObject</span><span class="w"> </span><span class="kn">import</span> <span class="n">AbstractBonusObject</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l8">
+                  <tt><i>8</i> <span class="kn">from</span><span class="w"> </span><span class="nn">Views.UserPlate</span><span class="w"> </span><span class="kn">import</span> <span class="n">UserPlateObject</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l9">
+                  <tt><i>9</i> <span class="kn">from</span><span class="w"> </span><span class="nn">Views.ExtendPlatformBonus</span><span class="w"> </span><span class="kn">import</span> <span class="n">ExtendPlatformBonus</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="W292">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>W292:</strong> no newline at end of file
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="Tests.test_ExtendPlatformBonus.source.html#l307">
+                  <tt><i>307</i>         <span class="k">assert</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span>  <span class="c1"># Завжди падає</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         </ul>
+      </div>
+   </body>
+</html>

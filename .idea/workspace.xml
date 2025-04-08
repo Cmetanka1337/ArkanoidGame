@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8c290049-b9a1-4c42-84c9-cbbf1f5a2d93" name="Changes" comment="added ci.yml to configure GitHub Actions">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
+    <list default="true" id="8c290049-b9a1-4c42-84c9-cbbf1f5a2d93" name="Changes" comment="added pytest-mock to the ci.yml">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,7 +183,7 @@
       <workItem from="1744048348433" duration="3270000" />
       <workItem from="1744052063759" duration="2002000" />
       <workItem from="1744128034202" duration="9077000" />
-      <workItem from="1744148401105" duration="828000" />
+      <workItem from="1744148401105" duration="2064000" />
     </task>
     <task id="LOCAL-00001" summary="Changed annotations">
       <option name="closed" value="true" />
@@ -248,7 +249,39 @@
       <option name="project" value="LOCAL" />
       <updated>1744148735029</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="configured ci.yml">
+      <option name="closed" value="true" />
+      <created>1744149248104</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1744149248104</updated>
+    </task>
+    <task id="LOCAL-00010" summary="deleted from tests test_GameScreenModule.py">
+      <option name="closed" value="true" />
+      <created>1744149478352</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1744149478352</updated>
+    </task>
+    <task id="LOCAL-00011" summary="fixed some problem in ci.yml">
+      <option name="closed" value="true" />
+      <created>1744149703140</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1744149703140</updated>
+    </task>
+    <task id="LOCAL-00012" summary="added pytest-mock to the ci.yml">
+      <option name="closed" value="true" />
+      <created>1744150030004</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1744150030005</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -273,7 +306,11 @@
     <MESSAGE value="Implemented tests for ExtendPlatformBonus" />
     <MESSAGE value="Wrote custom markers" />
     <MESSAGE value="added ci.yml to configure GitHub Actions" />
-    <option name="LAST_COMMIT_MESSAGE" value="added ci.yml to configure GitHub Actions" />
+    <MESSAGE value="configured ci.yml" />
+    <MESSAGE value="deleted from tests test_GameScreenModule.py" />
+    <MESSAGE value="fixed some problem in ci.yml" />
+    <MESSAGE value="added pytest-mock to the ci.yml" />
+    <option name="LAST_COMMIT_MESSAGE" value="added pytest-mock to the ci.yml" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/ArkanoidGame$GameScreenModule.coverage" NAME="GameScreenModule Coverage Results" MODIFIED="1742316139996" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Views/Screens" />
