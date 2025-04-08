@@ -4,8 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6ea78d5-0713-45ca-84fa-9b9f565cb80a" name="Changes" comment="Added test_LevelPlate.py for testing methods of LevelPlate.py">
-      <change afterPath="$PROJECT_DIR$/Tests/test_LevelManager.py" afterDir="false" />
+    <list default="true" id="a6ea78d5-0713-45ca-84fa-9b9f565cb80a" name="Changes" comment="Added test_LevelManager.py for testing methods in LevelManager class and updated requirements.txt">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,7 +100,7 @@
       <workItem from="1742984252528" duration="80000" />
       <workItem from="1743523964298" duration="8080000" />
       <workItem from="1743581853437" duration="7609000" />
-      <workItem from="1744112449118" duration="12387000" />
+      <workItem from="1744112449118" duration="15012000" />
     </task>
     <task id="LOCAL-00001" summary="Added new class LevelEndScreen and some methods in GameScreenModule, LevelManager, LevelPlate for transition between levels">
       <option name="closed" value="true" />
@@ -190,7 +190,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744134298901</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added test_LevelManager.py for testing methods in LevelManager class and updated requirements.txt">
+      <option name="closed" value="true" />
+      <created>1744135123565</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1744135123565</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -218,7 +226,8 @@
     <MESSAGE value="Delete some unnecessary classes and localize GameOverScreen" />
     <MESSAGE value="Corrected UserPlate.py, LevelPlate.py and LevelManager.py according to flake8 and added test_UserPlate.py for testing UserPlate.py" />
     <MESSAGE value="Added test_LevelPlate.py for testing methods of LevelPlate.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added test_LevelPlate.py for testing methods of LevelPlate.py" />
+    <MESSAGE value="Added test_LevelManager.py for testing methods in LevelManager class and updated requirements.txt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added test_LevelManager.py for testing methods in LevelManager class and updated requirements.txt" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/arkanoid1$LocalizedStrings.coverage" NAME="LocalizedStrings Coverage Results" MODIFIED="1743529091974" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Models" />
