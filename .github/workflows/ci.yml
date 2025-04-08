@@ -31,7 +31,6 @@ jobs:
           pytest Tests/test_AdditionalBallsBonus.py -v
           pytest Tests/test_Ball.py -v
           pytest Tests/test_ExtendPlatformBonus.py
-#          pytest Tests/test_GameScreenModule.py -v
           pytest Tests/test_LevelManager.py -v
           pytest Tests/test_LevelPlate.py -v
           pytest Tests/test_SettingsViewController.py -v
