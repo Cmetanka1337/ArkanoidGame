@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a6ea78d5-0713-45ca-84fa-9b9f565cb80a" name="Changes" comment="Added test_LevelManager.py for testing methods in LevelManager class and updated requirements.txt">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="a6ea78d5-0713-45ca-84fa-9b9f565cb80a" name="Changes" comment="Added test_LevelManager.py for testing methods in LevelManager class and updated requirements.txt" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
